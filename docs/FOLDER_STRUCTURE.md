@@ -7,7 +7,7 @@
 ```
 Blog/
 ├── README.md                    # プロジェクト概要
-├── index.html                   # トップページ（写真投稿フィードを表示）
+├── index.html                   # トップページ（サイトタイトルを表示）
 ├── .cursorrules                 # Cursor用のプロジェクトルール
 ├── .gitignore
 ├── docs/                        # ドキュメントフォルダ
@@ -28,8 +28,6 @@ Blog/
 
 ### トップページ（index.html）
 - サイトタイトル「Anyone, Anytime, Anywhere」を表示
-- 各写真投稿を縦に並べて表示（フィード形式）
-- 各投稿のサムネイル画像と日付・説明文を表示
 
 ### 各写真集フォルダ（Gallery/）
 - 各写真集は独立したフォルダとして管理
@@ -52,4 +50,4 @@ Blog/
 
 1. `Gallery/EP0002_名前/` フォルダを作成
 2. その中に `index.html` と `images/` フォルダを作成
-3. トップページの `posts` 配列に追加
+3. 個別ページの `imageData` 配列に画像情報を追加

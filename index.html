@@ -49,51 +49,6 @@
             margin-bottom: 0;
         }
 
-        .feed {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-        }
-
-        .post {
-            text-decoration: none;
-            color: #fff;
-            display: block;
-            margin-bottom: 0;
-            opacity: 1;
-            transition: opacity 160ms ease;
-        }
-
-        .post:hover {
-            opacity: 0.8;
-        }
-
-        .post-caption {
-            margin: 0;
-            font-size: 1em;
-            font-weight: 300;
-            margin-bottom: 0;
-            line-height: 1.4;
-            padding-bottom: 0;
-        }
-
-        .post-image {
-            width: 100%;
-            height: auto;
-            display: block;
-            margin: 0;
-            padding: 0;
-        }
-
-        .post-description {
-            font-size: 1em;
-            font-weight: 300;
-            line-height: 1.4;
-            margin: 0;
-            padding: 0;
-            color: #fff;
-        }
-
         footer {
             display: none;
         }
@@ -117,70 +72,11 @@
             <h1>Anyone, Anytime, Anywhere</h1>
         </header>
 
-        <main id="feed">
-            <!-- 投稿フィードはJavaScriptで動的に読み込まれます -->
-        </main>
 
         <footer>
             <p>&copy; 2025</p>
         </footer>
     </div>
 
-    <script>
-        // 投稿フィード（1枚=1投稿）
-        // 参照サイト: https://anyone-anytime-anywhere.super.site/
-        const posts = [
-            { date: '2025/12', description: 'Autumn leaves with a statue in Ueno, Tokyo', image: 'Gallery/EP0001_Ueno/images/resize_DSC01732.JPG', url: 'Gallery/EP0001_Ueno/index.html', showDescriptionBelow: false },
-            { date: '2025/12', description: 'Golden ginkgo avenue at Meiji Jingu Gaien, Tokyo', image: 'Gallery/EP0001_Ueno/images/resize_DSC01736.JPG', url: 'Gallery/EP0001_Ueno/index.html', showDescriptionBelow: false },
-            { date: '2025/11', description: 'Rikugien Garden, a famous Japanese garden in Tokyo', image: 'Gallery/EP0001_Ueno/images/resize_DSC01780.JPG', url: 'Gallery/EP0001_Ueno/index.html', showDescriptionBelow: false },
-            { date: '2025/11', description: 'Suikeien Garden at Shibamata Taishakuten in the rain, Tokyo', image: 'Gallery/EP0001_Ueno/images/resize_DSC01872.JPG', url: 'Gallery/EP0001_Ueno/index.html', showDescriptionBelow: true },
-            { date: '2025/11', description: 'Suikeien Garden at Shibamata Taishakuten in the rain, Tokyo', image: 'Gallery/EP0001_Ueno/images/resize_DSC01892.JPG', url: 'Gallery/EP0001_Ueno/index.html', showDescriptionBelow: true },
-            { date: '2025/11', description: 'Suikeien Garden at Shibamata Taishakuten in the rain, Tokyo', image: 'Gallery/EP0001_Ueno/images/resize_DSC01919.JPG', url: 'Gallery/EP0001_Ueno/index.html', showDescriptionBelow: true },
-        ];
-
-        function loadFeed() {
-            const feedEl = document.getElementById('feed');
-            const feed = document.createElement('div');
-            feed.className = 'feed';
-
-            posts.forEach((post) => {
-                const a = document.createElement('a');
-                a.href = post.url;
-                a.className = 'post';
-
-                const captionTop = document.createElement('div');
-                captionTop.className = 'post-caption';
-                captionTop.textContent = `${post.date} ${post.description}`;
-
-                const img = document.createElement('img');
-                img.src = post.image;
-                img.className = 'post-image';
-                img.alt = post.description;
-                img.loading = 'lazy';
-
-                const captionBottom = document.createElement('div');
-                captionBottom.className = 'post-caption';
-                captionBottom.textContent = post.date;
-
-                a.appendChild(captionTop);
-                a.appendChild(img);
-                a.appendChild(captionBottom);
-
-                // 画像の下に説明文を表示する場合
-                if (post.showDescriptionBelow) {
-                    const descriptionBelow = document.createElement('div');
-                    descriptionBelow.className = 'post-description';
-                    descriptionBelow.textContent = post.description;
-                    a.appendChild(descriptionBelow);
-                }
-
-                feed.appendChild(a);
-            });
-
-            feedEl.appendChild(feed);
-        }
-
-        window.addEventListener('DOMContentLoaded', loadFeed);
-    </script>
 </body>
 </html>

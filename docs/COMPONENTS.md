@@ -35,72 +35,6 @@
 
 ---
 
-### Post Feed コンポーネント
-
-**場所**: `.container > main#feed`
-
-**構造**:
-```html
-<main id="feed">
-  <div class="feed">
-    <a href="..." class="post">
-      <div class="post-caption">日付 説明文</div>
-      <img src="..." class="post-image" alt="...">
-      <div class="post-caption">日付</div>
-      <!-- 一部の投稿では画像の下に説明文が再度表示される -->
-      <div class="post-description">説明文</div>
-    </a>
-    <!-- 複数の投稿が繰り返される -->
-  </div>
-</main>
-```
-
-**データ構造**:
-```javascript
-const posts = [
-  {
-    date: 'YYYY/MM',
-    description: '説明文',
-    image: 'Gallery/EP####_名前/images/ファイル名.JPG',
-    url: 'Gallery/EP####_名前/index.html',
-    showDescriptionBelow: false // 画像の下に説明文を表示するか（オプション）
-  }
-];
-```
-
-**Post コンポーネント（.post）**:
-- `display: block`
-- `text-decoration: none`
-- `color: #fff`
-- `opacity: 1`
-- `transition: opacity 160ms ease`
-- ホバー時: `opacity: 0.8`
-
-**Post Caption（.post-caption）**:
-- `font-size: 1em`
-- `font-weight: 300`
-- `line-height: 1.4`
-- `margin: 0`
-- `padding-bottom: 0`
-
-**Post Image（.post-image）**:
-- `width: 100%`
-- `height: auto`
-- `display: block`
-- `margin: 0`
-- `padding: 0`
-- `loading: "lazy"`
-
-**Post Description（.post-description）**:
-- `font-size: 1em`
-- `font-weight: 300`
-- `line-height: 1.4`
-- `margin: 0`
-- `padding: 0`
-- 画像の下に表示される説明文（オプション）
-
----
-
 ## 個別ページ（Gallery/EP####_名前/index.html）
 
 ### Header コンポーネント
@@ -178,12 +112,6 @@ const imageData = [
 ---
 
 ## JavaScript関数
-
-### トップページ
-
-#### `loadFeed()`
-- `posts`配列を読み込んで、`.feed`内に投稿を動的に生成
-- `DOMContentLoaded`イベントで実行
 
 ### 個別ページ
 
