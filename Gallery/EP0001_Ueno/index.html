@@ -76,6 +76,17 @@
         footer {
             display: none;
         }
+
+        /* レスポンシブデザイン */
+        @media (max-width: 767px) {
+            .container {
+                padding: 40px 20px;
+            }
+
+            h1 {
+                font-size: 2.5em;
+            }
+        }
     </style>
 </head>
 <body>
@@ -92,12 +103,12 @@
     <script>
         // imagesフォルダ内の画像ファイルリスト（日付と説明を含む）
         const imageData = [
-            { file: 'resize_DSC01732.JPG', date: '2025/12', description: 'Description for photo 1' },
-            { file: 'resize_DSC01736.JPG', date: '2025/12', description: 'Description for photo 2' },
-            { file: 'resize_DSC01780.JPG', date: '2025/12', description: 'Description for photo 3' },
-            { file: 'resize_DSC01872.JPG', date: '2025/12', description: 'Description for photo 4' },
-            { file: 'resize_DSC01892.JPG', date: '2025/12', description: 'Description for photo 5' },
-            { file: 'resize_DSC01919.JPG', date: '2025/12', description: 'Description for photo 6' }
+            { file: 'resize_DSC01732.JPG', date: '2025/12', description: 'Autumn leaves with a statue in Ueno, Tokyo' },
+            { file: 'resize_DSC01736.JPG', date: '2025/12', description: 'Golden ginkgo avenue at Meiji Jingu Gaien, Tokyo' },
+            { file: 'resize_DSC01780.JPG', date: '2025/11', description: 'Rikugien Garden, a famous Japanese garden in Tokyo' },
+            { file: 'resize_DSC01872.JPG', date: '2025/11', description: 'Suikeien Garden at Shibamata Taishakuten in the rain, Tokyo' },
+            { file: 'resize_DSC01892.JPG', date: '2025/11', description: 'Suikeien Garden at Shibamata Taishakuten in the rain, Tokyo' },
+            { file: 'resize_DSC01919.JPG', date: '2025/11', description: 'Suikeien Garden at Shibamata Taishakuten in the rain, Tokyo' }
         ];
 
         // 画像を表示する関数

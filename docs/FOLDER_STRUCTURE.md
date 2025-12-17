@@ -8,6 +8,7 @@
 Blog/
 ├── README.md                    # プロジェクト概要
 ├── index.html                   # トップページ（写真投稿フィードを表示）
+├── .cursorrules                 # Cursor用のプロジェクトルール
 ├── .gitignore
 ├── docs/                        # ドキュメントフォルダ
 │   ├── REQUIREMENTS.md         # 要件定義
