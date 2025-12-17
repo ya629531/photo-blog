@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>写真ブログ</title>
+    <title>Anyone, Anytime, Anywhere</title>
     <style>
         * {
             margin: 0;
@@ -16,56 +16,48 @@
             background-color: #000;
             color: #fff;
             line-height: 1.6;
-            padding: 20px;
+            padding: 40px 20px;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
         header {
             text-align: center;
-            margin-bottom: 40px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #333;
+            margin-bottom: 60px;
         }
 
         h1 {
-            font-size: 2em;
+            font-size: 2.5em;
             font-weight: 300;
             color: #fff;
-            margin-bottom: 10px;
+            letter-spacing: 0.05em;
         }
 
         .photo-item {
-            margin-bottom: 40px;
-            background: white;
-            padding: 20px;
-            border-radius: 4px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 60px;
+        }
+
+        .photo-caption {
+            margin-bottom: 15px;
+            font-size: 1em;
+            color: #fff;
+            font-weight: 300;
         }
 
         .photo-item img {
             width: 100%;
             height: auto;
             display: block;
-            border-radius: 2px;
-        }
-
-        .photo-caption {
-            margin-top: 15px;
-            font-size: 0.9em;
-            color: #ccc;
-            text-align: center;
         }
 
         footer {
             text-align: center;
-            margin-top: 60px;
-            padding-top: 20px;
-            border-top: 1px solid #333;
-            color: #999;
+            margin-top: 80px;
+            padding-top: 40px;
+            color: #666;
             font-size: 0.85em;
         }
     </style>
@@ -73,7 +65,7 @@
 <body>
     <div class="container">
         <header>
-            <h1>写真ブログ</h1>
+            <h1>Anyone, Anytime, Anywhere</h1>
         </header>
 
         <main id="photo-gallery">
@@ -81,40 +73,40 @@
         </main>
 
         <footer>
-            <p>&copy; 2025 写真ブログ</p>
+            <p>&copy; 2025</p>
         </footer>
     </div>
 
     <script>
-        // imagesフォルダ内の画像ファイルリスト
-        const imageFiles = [
-            'resize_DSC01732.JPG',
-            'resize_DSC01736.JPG',
-            'resize_DSC01780.JPG',
-            'resize_DSC01872.JPG',
-            'resize_DSC01892.JPG',
-            'resize_DSC01919.JPG'
+        // imagesフォルダ内の画像ファイルリスト（日付と説明を含む）
+        const imageData = [
+            { file: 'resize_DSC01732.JPG', date: '2025/12', description: 'Description for photo 1' },
+            { file: 'resize_DSC01736.JPG', date: '2025/12', description: 'Description for photo 2' },
+            { file: 'resize_DSC01780.JPG', date: '2025/12', description: 'Description for photo 3' },
+            { file: 'resize_DSC01872.JPG', date: '2025/12', description: 'Description for photo 4' },
+            { file: 'resize_DSC01892.JPG', date: '2025/12', description: 'Description for photo 5' },
+            { file: 'resize_DSC01919.JPG', date: '2025/12', description: 'Description for photo 6' }
         ];
 
         // 画像を表示する関数
         function loadImages() {
             const gallery = document.getElementById('photo-gallery');
             
-            imageFiles.forEach((filename, index) => {
+            imageData.forEach((item) => {
                 const photoItem = document.createElement('div');
                 photoItem.className = 'photo-item';
                 
-                const img = document.createElement('img');
-                img.src = `images/${filename}`;
-                img.alt = `写真${index + 1}`;
-                img.loading = 'lazy'; // 遅延読み込み
-                
                 const caption = document.createElement('div');
                 caption.className = 'photo-caption';
-                caption.textContent = filename.replace(/\.[^/.]+$/, ''); // 拡張子を除いたファイル名
+                caption.textContent = `${item.date} ${item.description}`;
                 
-                photoItem.appendChild(img);
+                const img = document.createElement('img');
+                img.src = `images/${item.file}`;
+                img.alt = item.description;
+                img.loading = 'lazy'; // 遅延読み込み
+                
                 photoItem.appendChild(caption);
+                photoItem.appendChild(img);
                 gallery.appendChild(photoItem);
             });
         }
