@@ -6,12 +6,18 @@
 
 ```
 Blog/
-├── index.html                    # トップページ（写真集一覧を表示）
+├── README.md                    # プロジェクト概要
+├── index.html                   # トップページ（写真投稿フィードを表示）
 ├── .gitignore
-└── Gallery/                      # 各写真集フォルダ
-    └── EP0001_Ueno/              # 写真集1（EP0001_Ueno形式）
-        ├── index.html           # 写真集の個別ページ
-        └── images/              # この写真集専用の画像
+├── docs/                        # ドキュメントフォルダ
+│   ├── REQUIREMENTS.md         # 要件定義
+│   ├── DESIGN.md               # デザイン仕様
+│   ├── COMPONENTS.md           # コンポーネント仕様
+│   └── FOLDER_STRUCTURE.md     # フォルダ構成（このファイル）
+└── Gallery/                     # 各写真集フォルダ
+    └── EP0001_Ueno/            # 写真集1（EP0001_Ueno形式）
+        ├── index.html          # 写真集の個別ページ
+        └── images/             # この写真集専用の画像
             ├── resize_DSC01732.JPG
             ├── resize_DSC01736.JPG
             └── ...
@@ -21,14 +27,18 @@ Blog/
 
 ### トップページ（index.html）
 - サイトタイトル「Anyone, Anytime, Anywhere」を表示
-- 各写真集へのリンクを一覧表示
-- 各写真集のサムネイル画像とタイトルを表示
+- 各写真投稿を縦に並べて表示（フィード形式）
+- 各投稿のサムネイル画像と日付・説明文を表示
 
 ### 各写真集フォルダ（Gallery/）
 - 各写真集は独立したフォルダとして管理
 - フォルダ名は `EP0001_名前` 形式（Episode + 4桁の通し番号 + アンダースコア + 名前）
 - 各フォルダに`index.html`と`images/`フォルダを含む
 - URL例：`/Gallery/EP0001_Ueno/` → `Gallery/EP0001_Ueno/index.html`
+
+### ドキュメントフォルダ（docs/）
+- プロジェクトのドキュメントをまとめて管理
+- `README.md`はトップレベルに残す（GitHubで自動表示される）
 
 ### メリット
 1. **拡張性**: 新しい写真集を追加する際、新しいフォルダを追加するだけ
@@ -41,4 +51,4 @@ Blog/
 
 1. `Gallery/EP0002_名前/` フォルダを作成
 2. その中に `index.html` と `images/` フォルダを作成
-3. トップページの `galleries` 配列に追加
+3. トップページの `posts` 配列に追加
