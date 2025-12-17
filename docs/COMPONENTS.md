@@ -35,6 +35,32 @@
 
 ---
 
+### Banner コンポーネント
+
+**場所**: `.container > .banner`（ヘッダーの下）
+
+**構造**:
+```html
+<div class="banner">
+  <img src="images/banner.jpg" alt="Banner" class="banner-image">
+</div>
+```
+
+**スタイル**:
+- `width: 100%`
+- `margin-bottom: 0`
+- `padding: 0`
+
+**Banner Image（.banner-image）**:
+- `width: 100%`
+- `height: auto`
+- `display: block`
+- `margin: 0`
+- `padding: 0`
+- `loading: "lazy"`
+
+---
+
 ## 個別ページ（Gallery/EP####_名前/index.html）
 
 ### Header コンポーネント
