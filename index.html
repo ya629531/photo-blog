@@ -38,24 +38,24 @@
             line-height: 1.1;
         }
 
-        .gallery-list {
+        .feed {
             display: flex;
             flex-direction: column;
             gap: 0;
         }
 
-        .gallery-item {
+        .post {
             text-decoration: none;
             color: #fff;
             display: block;
             margin-bottom: 0;
         }
 
-        .gallery-item:hover {
+        .post:hover {
             opacity: 1;
         }
 
-        .gallery-caption {
+        .post-caption {
             margin: 0;
             font-size: 1em;
             font-weight: 300;
@@ -64,7 +64,7 @@
             padding-bottom: 0;
         }
 
-        .gallery-preview {
+        .post-image {
             width: 100%;
             height: auto;
             display: block;
@@ -83,8 +83,8 @@
             <h1>Anyone, Anytime, Anywhere</h1>
         </header>
 
-        <main id="gallery-list">
-            <!-- 写真集一覧はJavaScriptで動的に読み込まれます -->
+        <main id="feed">
+            <!-- 投稿フィードはJavaScriptで動的に読み込まれます -->
         </main>
 
         <footer>
@@ -93,54 +93,51 @@
     </div>
 
     <script>
-        // 写真集のリスト
-        const galleries = [
-            {
-                id: 'EP0001_Ueno',
-                date: '2025/12',
-                description: 'Autumn leaves with a statue in Ueno, Tokyo',
-                previewImage: 'Gallery/EP0001_Ueno/images/resize_DSC01732.JPG',
-                link: 'Gallery/EP0001_Ueno/index.html'
-            }
-            // 新しい写真集を追加する場合はここに追加
+        // 投稿フィード（1枚=1投稿）
+        // 必要に応じて post.url を個別投稿ページに変更できます
+        const posts = [
+            { date: '2025/12', description: 'Autumn leaves with a statue in Ueno, Tokyo', image: 'Gallery/EP0001_Ueno/images/resize_DSC01732.JPG', url: 'Gallery/EP0001_Ueno/index.html' },
+            { date: '2025/12', description: 'Golden ginkgo avenue at Meiji Jingu Gaien, Tokyo', image: 'Gallery/EP0001_Ueno/images/resize_DSC01736.JPG', url: 'Gallery/EP0001_Ueno/index.html' },
+            { date: '2025/11', description: 'Rikugien Garden, a famous Japanese garden in Tokyo', image: 'Gallery/EP0001_Ueno/images/resize_DSC01780.JPG', url: 'Gallery/EP0001_Ueno/index.html' },
+            { date: '2025/11', description: 'Suikeien Garden at Shibamata Taishakuten in the rain, Tokyo', image: 'Gallery/EP0001_Ueno/images/resize_DSC01872.JPG', url: 'Gallery/EP0001_Ueno/index.html' },
+            { date: '2025/11', description: 'Suikeien Garden at Shibamata Taishakuten in the rain, Tokyo', image: 'Gallery/EP0001_Ueno/images/resize_DSC01892.JPG', url: 'Gallery/EP0001_Ueno/index.html' },
+            { date: '2025/11', description: 'Suikeien Garden at Shibamata Taishakuten in the rain, Tokyo', image: 'Gallery/EP0001_Ueno/images/resize_DSC01919.JPG', url: 'Gallery/EP0001_Ueno/index.html' },
         ];
 
-        // 写真集一覧を表示する関数
-        function loadGalleries() {
-            const galleryList = document.getElementById('gallery-list');
-            const listContainer = document.createElement('div');
-            listContainer.className = 'gallery-list';
-            
-            galleries.forEach((gallery) => {
-                const galleryItem = document.createElement('a');
-                galleryItem.href = gallery.link;
-                galleryItem.className = 'gallery-item';
-                
+        function loadFeed() {
+            const feedEl = document.getElementById('feed');
+            const feed = document.createElement('div');
+            feed.className = 'feed';
+
+            posts.forEach((post) => {
+                const a = document.createElement('a');
+                a.href = post.url;
+                a.className = 'post';
+
                 const captionTop = document.createElement('div');
-                captionTop.className = 'gallery-caption';
-                captionTop.textContent = `${gallery.date} ${gallery.description}`;
-                
-                const preview = document.createElement('img');
-                preview.src = gallery.previewImage;
-                preview.className = 'gallery-preview';
-                preview.alt = gallery.description;
-                preview.loading = 'lazy';
+                captionTop.className = 'post-caption';
+                captionTop.textContent = `${post.date} ${post.description}`;
+
+                const img = document.createElement('img');
+                img.src = post.image;
+                img.className = 'post-image';
+                img.alt = post.description;
+                img.loading = 'lazy';
 
                 const captionBottom = document.createElement('div');
-                captionBottom.className = 'gallery-caption';
-                captionBottom.textContent = gallery.date;
-                
-                galleryItem.appendChild(captionTop);
-                galleryItem.appendChild(preview);
-                galleryItem.appendChild(captionBottom);
-                listContainer.appendChild(galleryItem);
+                captionBottom.className = 'post-caption';
+                captionBottom.textContent = post.date;
+
+                a.appendChild(captionTop);
+                a.appendChild(img);
+                a.appendChild(captionBottom);
+                feed.appendChild(a);
             });
-            
-            galleryList.appendChild(listContainer);
+
+            feedEl.appendChild(feed);
         }
 
-        // ページ読み込み時に写真集一覧を読み込む
-        window.addEventListener('DOMContentLoaded', loadGalleries);
+        window.addEventListener('DOMContentLoaded', loadFeed);
     </script>
 </body>
 </html>
