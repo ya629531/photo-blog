@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>写真ブログ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #fafafa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        h1 {
+            font-size: 2em;
+            font-weight: 300;
+            color: #222;
+            margin-bottom: 10px;
+        }
+
+        .photo-item {
+            margin-bottom: 40px;
+            background: white;
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 2px;
+        }
+
+        .photo-caption {
+            margin-top: 15px;
+            font-size: 0.9em;
+            color: #666;
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            color: #999;
+            font-size: 0.85em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>写真ブログ</h1>
+        </header>
+
+        <main id="photo-gallery">
+            <!-- 画像はJavaScriptで動的に読み込まれます -->
+        </main>
+
+        <footer>
+            <p>&copy; 2025 写真ブログ</p>
+        </footer>
+    </div>
+
+    <script>
+        // imagesフォルダ内の画像ファイルリスト
+        const imageFiles = [
+            'resize_DSC01732.JPG',
+            'resize_DSC01736.JPG',
+            'resize_DSC01780.JPG',
+            'resize_DSC01872.JPG',
+            'resize_DSC01892.JPG',
+            'resize_DSC01919.JPG'
+        ];
+
+        // 画像を表示する関数
+        function loadImages() {
+            const gallery = document.getElementById('photo-gallery');
+            
+            imageFiles.forEach((filename, index) => {
+                const photoItem = document.createElement('div');
+                photoItem.className = 'photo-item';
+                
+                const img = document.createElement('img');
+                img.src = `images/${filename}`;
+                img.alt = `写真${index + 1}`;
+                img.loading = 'lazy'; // 遅延読み込み
+                
+                const caption = document.createElement('div');
+                caption.className = 'photo-caption';
+                caption.textContent = filename.replace(/\.[^/.]+$/, ''); // 拡張子を除いたファイル名
+                
+                photoItem.appendChild(img);
+                photoItem.appendChild(caption);
+                gallery.appendChild(photoItem);
+            });
+        }
+
+        // ページ読み込み時に画像を読み込む
+        window.addEventListener('DOMContentLoaded', loadImages);
+    </script>
+</body>
+</html>
