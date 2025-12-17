@@ -1,31 +1,19 @@
-# フォルダ構成の提案
+# フォルダ構成
 
-参照サイト（https://anyone-anytime-anywhere.super.site/）のような構造にするためのフォルダ構成案です。
+参照サイト（https://anyone-anytime-anywhere.super.site/）のような構造のフォルダ構成です。
 
-## 推奨構成
+## 現在の構成
 
 ```
 Blog/
 ├── index.html                    # トップページ（写真集一覧を表示）
 ├── .gitignore
-├── css/
-│   └── style.css                # 共通スタイルシート
-├── images/                      # 現在の画像（後で移動）
-│   └── ...
-└── gallery/                     # 各写真集フォルダ
-    ├── tokyo-autumn-2025/       # 写真集1（例：東京の秋 2025）
-    │   ├── index.html           # 写真集の個別ページ
-    │   └── images/              # この写真集専用の画像
-    │       ├── photo1.jpg
-    │       ├── photo2.jpg
-    │       └── ...
-    ├── ueno-park/               # 写真集2（例：上野公園）
-    │   ├── index.html
-    │   └── images/
-    │       └── ...
-    └── meiji-jingu/             # 写真集3（例：明治神宮）
-        ├── index.html
-        └── images/
+└── Gallery/                      # 各写真集フォルダ
+    └── EP0001_Ueno/              # 写真集1（EP0001_Ueno形式）
+        ├── index.html           # 写真集の個別ページ
+        └── images/              # この写真集専用の画像
+            ├── resize_DSC01732.JPG
+            ├── resize_DSC01736.JPG
             └── ...
 ```
 
@@ -36,20 +24,21 @@ Blog/
 - 各写真集へのリンクを一覧表示
 - 各写真集のサムネイル画像とタイトルを表示
 
-### 各写真集フォルダ（gallery/）
+### 各写真集フォルダ（Gallery/）
 - 各写真集は独立したフォルダとして管理
+- フォルダ名は `EP0001_名前` 形式（Episode + 4桁の通し番号 + アンダースコア + 名前）
 - 各フォルダに`index.html`と`images/`フォルダを含む
-- URL例：`/gallery/tokyo-autumn-2025/` → `gallery/tokyo-autumn-2025/index.html`
+- URL例：`/Gallery/EP0001_Ueno/` → `Gallery/EP0001_Ueno/index.html`
 
 ### メリット
 1. **拡張性**: 新しい写真集を追加する際、新しいフォルダを追加するだけ
 2. **整理**: 各写真集の画像とHTMLが分離され、管理しやすい
 3. **独立性**: 各写真集が独立しているため、削除や移動が容易
-4. **URL構造**: クリーンなURL構造（例：`/gallery/tokyo-autumn-2025/`）
+4. **URL構造**: クリーンなURL構造（例：`/Gallery/EP0001_Ueno/`）
+5. **ID管理**: EP0001, EP0002... の通し番号で管理しやすい
 
-## 実装手順
+## 新しい写真集を追加する場合
 
-1. `gallery/`フォルダを作成
-2. 既存の`images/`フォルダを最初の写真集として移動
-3. トップページを写真集一覧ページに変更
-4. 各写真集用のテンプレートHTMLを作成
+1. `Gallery/EP0002_名前/` フォルダを作成
+2. その中に `index.html` と `images/` フォルダを作成
+3. トップページの `galleries` 配列に追加
