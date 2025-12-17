@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EP0001 Ueno - Anyone, Anytime, Anywhere</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            font-weight: 300;
+            color: #fff;
+            letter-spacing: 0.05em;
+            margin-bottom: 10px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #999;
+            text-decoration: none;
+            font-size: 0.9em;
+        }
+
+        .back-link:hover {
+            color: #fff;
+        }
+
+        .photo-item {
+            margin-bottom: 60px;
+        }
+
+        .photo-caption {
+            margin-bottom: 15px;
+            font-size: 1em;
+            color: #fff;
+            font-weight: 300;
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 80px;
+            padding-top: 40px;
+            color: #666;
+            font-size: 0.85em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Anyone, Anytime, Anywhere</h1>
+            <a href="../../index.html" class="back-link">← Back to Gallery</a>
+        </header>
+
+        <main id="photo-gallery">
+            <!-- 画像はJavaScriptで動的に読み込まれます -->
+        </main>
+
+        <footer>
+            <p>&copy; 2025</p>
+        </footer>
+    </div>
+
+    <script>
+        // imagesフォルダ内の画像ファイルリスト（日付と説明を含む）
+        const imageData = [
+            { file: 'resize_DSC01732.JPG', date: '2025/12', description: 'Description for photo 1' },
+            { file: 'resize_DSC01736.JPG', date: '2025/12', description: 'Description for photo 2' },
+            { file: 'resize_DSC01780.JPG', date: '2025/12', description: 'Description for photo 3' },
+            { file: 'resize_DSC01872.JPG', date: '2025/12', description: 'Description for photo 4' },
+            { file: 'resize_DSC01892.JPG', date: '2025/12', description: 'Description for photo 5' },
+            { file: 'resize_DSC01919.JPG', date: '2025/12', description: 'Description for photo 6' }
+        ];
+
+        // 画像を表示する関数
+        function loadImages() {
+            const gallery = document.getElementById('photo-gallery');
+            
+            imageData.forEach((item) => {
+                const photoItem = document.createElement('div');
+                photoItem.className = 'photo-item';
+                
+                const caption = document.createElement('div');
+                caption.className = 'photo-caption';
+                caption.textContent = `${item.date} ${item.description}`;
+                
+                const img = document.createElement('img');
+                img.src = `images/${item.file}`;
+                img.alt = item.description;
+                img.loading = 'lazy'; // 遅延読み込み
+                
+                photoItem.appendChild(caption);
+                photoItem.appendChild(img);
+                gallery.appendChild(photoItem);
+            });
+        }
+
+        // ページ読み込み時に画像を読み込む
+        window.addEventListener('DOMContentLoaded', loadImages);
+    </script>
+</body>
+</html>
