@@ -9,6 +9,7 @@
 **構造**:
 ```html
 <header>
+  <div class="site-title-small">Anyone, Anytime, Anywhere</div>
   <h1>Anyone, Anytime, Anywhere</h1>
 </header>
 ```
@@ -17,11 +18,20 @@
 - `text-align: center`
 - `margin-bottom: 60px`
 
+**小さいタイトル（.site-title-small）**:
+- `font-size: 1em`
+- `font-weight: 300`
+- `line-height: 1.4`
+- `margin-bottom: 0`
+- `padding-bottom: 0`
+
 **H1スタイル**:
 - `font-size: 3.5em`
 - `font-weight: 300`
 - `letter-spacing: 0.01em`
 - `line-height: 1.1`
+- `margin-top: 0`
+- `margin-bottom: 0`
 
 ---
 
@@ -37,6 +47,8 @@
       <div class="post-caption">日付 説明文</div>
       <img src="..." class="post-image" alt="...">
       <div class="post-caption">日付</div>
+      <!-- 一部の投稿では画像の下に説明文が再度表示される -->
+      <div class="post-description">説明文</div>
     </a>
     <!-- 複数の投稿が繰り返される -->
   </div>
@@ -50,7 +62,8 @@ const posts = [
     date: 'YYYY/MM',
     description: '説明文',
     image: 'Gallery/EP####_名前/images/ファイル名.JPG',
-    url: 'Gallery/EP####_名前/index.html'
+    url: 'Gallery/EP####_名前/index.html',
+    showDescriptionBelow: false // 画像の下に説明文を表示するか（オプション）
   }
 ];
 ```
@@ -77,6 +90,14 @@ const posts = [
 - `margin: 0`
 - `padding: 0`
 - `loading: "lazy"`
+
+**Post Description（.post-description）**:
+- `font-size: 1em`
+- `font-weight: 300`
+- `line-height: 1.4`
+- `margin: 0`
+- `padding: 0`
+- 画像の下に表示される説明文（オプション）
 
 ---
 
