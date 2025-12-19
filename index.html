@@ -184,15 +184,37 @@
     <script>
         // 写真投稿（3つを横に並べる）
         const photoPosts = [
-            { date: '2025/12', description: 'EP0001 Suikeien', image: 'Gallery/EP0001_Suikeien/images/banner.jpg', url: 'Gallery/EP0001_Suikeien/index.html' },
-            { date: '2025/12', description: 'EP0002 Rikugien', image: 'Gallery/EP0002_Rikugien/images/banner.jpg', url: 'Gallery/EP0002_Rikugien/index.html' },
-            { date: '2025/12', description: 'EP0003 Gaien', image: 'Gallery/EP0003_Gaien/images/banner.jpg', url: 'Gallery/EP0003_Gaien/index.html' }
+            { date: '2025/12', episode: 'EP0001_Suikeien', image: 'Gallery/EP0001_Suikeien/images/banner.jpg', url: 'Gallery/EP0001_Suikeien/index.html' },
+            { date: '2025/11', episode: 'EP0002_Rikugien', image: 'Gallery/EP0002_Rikugien/images/banner.jpg', url: 'Gallery/EP0002_Rikugien/index.html' },
+            { date: '2025/12', episode: 'EP0003_Gaien', image: 'Gallery/EP0003_Gaien/images/banner.jpg', url: 'Gallery/EP0003_Gaien/index.html' }
         ];
 
-        function loadPhotoGrid() {
+        async function loadPhotoGrid() {
             const gridEl = document.getElementById('photo-grid');
 
-            photoPosts.forEach((post) => {
+            // 各エピソードのdata.jsonを読み込んでfullTitleを取得
+            const postsWithTitles = await Promise.all(
+                photoPosts.map(async (post) => {
+                    try {
+                        const response = await fetch(`Gallery/${post.episode}/data.json`);
+                        if (response.ok) {
+                            const data = await response.json();
+                            return {
+                                ...post,
+                                description: data.fullTitle || data.title || post.episode
+                            };
+                        }
+                    } catch (error) {
+                        console.error(`Error loading data for ${post.episode}:`, error);
+                    }
+                    return {
+                        ...post,
+                        description: post.episode
+                    };
+                })
+            );
+
+            postsWithTitles.forEach((post) => {
                 const a = document.createElement('a');
                 a.href = post.url;
                 a.className = 'photo-post';

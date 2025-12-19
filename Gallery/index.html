@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="page-title">Gallery - Anyone, Anytime, Anywhere</title>
+    <script src="https://cdn.jsdelivr.net/npm/exif-js@2.3.0/exif.js"></script>
     <style>
         * {
             margin: 0;
@@ -237,14 +238,17 @@
                 })
                 .then(data => {
                     console.log('Data loaded successfully:', data);
+                    // fullTitleがあればそれを使用、なければtitleを使用
+                    const displayTitle = data.fullTitle || data.title;
+                    
                     // ページタイトルを更新
-                    document.getElementById('page-title').textContent = `${data.title} - Anyone, Anytime, Anywhere`;
+                    document.getElementById('page-title').textContent = `${displayTitle} - Anyone, Anytime, Anywhere`;
                     
                     // エピソード名を更新
-                    document.getElementById('episode-name').textContent = data.title;
+                    document.getElementById('episode-name').textContent = displayTitle;
                     
-                    // h1を更新
-                    document.getElementById('page-h1').textContent = data.h1;
+                    // h1を更新（fullTitleを使用）
+                    document.getElementById('page-h1').textContent = displayTitle;
                     
                     // バナー画像を設定
                     const bannerImg = document.getElementById('banner-image');
@@ -275,7 +279,18 @@
                 return;
             }
             
-            data.images.forEach((item) => {
+            // banner.jpgを除外して画像を表示
+            const filteredImages = data.images.filter(item => {
+                const fileName = item.file.toLowerCase();
+                return fileName !== 'banner.jpg' && fileName !== 'banner.jpeg';
+            });
+            
+            if (filteredImages.length === 0) {
+                gallery.innerHTML = '<p style="text-align: center; padding: 40px;">画像がありません</p>';
+                return;
+            }
+            
+            filteredImages.forEach((item) => {
                 const photoItem = document.createElement('div');
                 photoItem.className = 'photo-item';
                 
@@ -289,7 +304,67 @@
                 
                 const text = document.createElement('div');
                 text.className = 'photo-item-text';
-                text.textContent = item.exifText || ''; // EXIF情報など
+                text.textContent = ''; // 初期値は空
+                
+                // 全画像のEXIF情報を取得
+                if (typeof EXIF !== 'undefined') {
+                    img.onload = function() {
+                        EXIF.getData(this, function() {
+                            const shutterSpeed = EXIF.getTag(this, "ExposureTime");
+                            const aperture = EXIF.getTag(this, "FNumber");
+                            const iso = EXIF.getTag(this, "ISOSpeedRatings");
+                            const make = EXIF.getTag(this, "Make");
+                            const model = EXIF.getTag(this, "Model");
+                            const focalLength = EXIF.getTag(this, "FocalLength");
+                            
+                            // 指定された形式でEXIF情報をフォーマット: f/3.6 1/20sISO800 (FUJIFILM X100VI / 23mm)
+                            const exifParts = [];
+                            
+                            // 露出
+                            if (aperture) {
+                                exifParts.push(`f/${aperture}`);
+                            }
+                            
+                            // シャッター速度
+                            if (shutterSpeed) {
+                                const speed = shutterSpeed < 1 ? `1/${Math.round(1/shutterSpeed)}` : `${shutterSpeed}`;
+                                exifParts.push(`${speed}s`);
+                            }
+                            
+                            // ISO
+                            if (iso) {
+                                exifParts.push(`ISO${iso}`);
+                            }
+                            
+                            // カメラと焦点距離（括弧内）
+                            const cameraParts = [];
+                            if (make && model) {
+                                cameraParts.push(`${make} ${model}`);
+                            } else if (make) {
+                                cameraParts.push(make);
+                            } else if (model) {
+                                cameraParts.push(model);
+                            }
+                            
+                            if (focalLength) {
+                                cameraParts.push(`${focalLength}mm`);
+                            }
+                            
+                            if (cameraParts.length > 0) {
+                                exifParts.push(`(${cameraParts.join(' / ')})`);
+                            }
+                            
+                            if (exifParts.length > 0) {
+                                text.textContent = exifParts.join(' ');
+                            } else {
+                                text.textContent = '';
+                            }
+                        });
+                    };
+                } else {
+                    // EXIF.jsが読み込まれていない場合
+                    text.textContent = item.exifText || '';
+                }
                 
                 photoItem.appendChild(img);
                 photoItem.appendChild(text);
