@@ -179,7 +179,7 @@
             const urlParams = new URLSearchParams(window.location.search);
             const episodeParam = urlParams.get('episode');
             if (episodeParam) {
-                return episodeParam;
+                return episodeParam.trim(); // スペースを削除
             }
 
             // 2. パスから取得を試みる
@@ -200,14 +200,14 @@
                 const episodeName = pathParts[galleryIndex + 1];
                 // EP0001_ で始まるフォルダ名をチェック
                 if (episodeName && episodeName.startsWith('EP')) {
-                    return episodeName;
+                    return episodeName.trim(); // スペースを削除
                 }
             }
 
             // 3. hrefから直接探す（file:// の場合）
-            const hrefMatch = href.match(/Gallery\/(EP\d+_[^\/]+)/);
+            const hrefMatch = href.match(/Gallery\/(EP\d+_[^\/\s]+(?:\s+)?)/);
             if (hrefMatch) {
-                return hrefMatch[1];
+                return hrefMatch[1].trim(); // スペースを削除
             }
 
             return null;
@@ -219,10 +219,12 @@
         if (!episodeName) {
             document.body.innerHTML = '<div style="padding: 40px; text-align: center;"><h1>エピソードが見つかりません</h1><p><a href="../index.html" style="color: #fff;">トップページに戻る</a></p></div>';
         } else {
-            // data.jsonを読み込む
-            const dataPath = `${episodeName}/data.json`;
+            // エピソード名の前後のスペースを削除（念のため）
+            const episodeNameClean = episodeName.trim();
+            // data.jsonを読み込む（パスにスペースが含まれる場合に備えてエンコード）
+            const dataPath = `${episodeNameClean}/data.json`;
             console.log('Loading data from:', dataPath);
-            console.log('Episode name:', episodeName);
+            console.log('Episode name:', episodeNameClean);
             
             fetch(dataPath)
                 .then(response => {
@@ -246,21 +248,21 @@
                     
                     // バナー画像を設定
                     const bannerImg = document.getElementById('banner-image');
-                    bannerImg.src = `${episodeName}/images/banner.jpg`;
+                    bannerImg.src = `${episodeNameClean}/images/banner.jpg`;
                     
                     // 画像を表示
-                    loadImages(data, episodeName);
+                    loadImages(data, episodeNameClean);
                 })
                 .catch(error => {
                     console.error('Error loading data:', error);
                     console.error('Error details:', {
                         message: error.message,
-                        episodeName: episodeName,
+                        episodeName: episodeNameClean,
                         dataPath: dataPath,
                         currentPath: window.location.pathname,
                         currentHref: window.location.href
                     });
-                    document.body.innerHTML = `<div style="padding: 40px; text-align: center;"><h1>データの読み込みに失敗しました</h1><p>${error.message}</p><p>エピソード: ${episodeName}</p><p>パス: ${dataPath}</p><p style="font-size: 0.8em; color: #888;">ブラウザのコンソール（F12）で詳細を確認してください</p><p><a href="../index.html" style="color: #fff;">トップページに戻る</a></p></div>`;
+                    document.body.innerHTML = `<div style="padding: 40px; text-align: center;"><h1>データの読み込みに失敗しました</h1><p>${error.message}</p><p>エピソード: ${episodeNameClean}</p><p>パス: ${dataPath}</p><p style="font-size: 0.8em; color: #888;">ブラウザのコンソール（F12）で詳細を確認してください</p><p><a href="../index.html" style="color: #fff;">トップページに戻る</a></p></div>`;
                 });
         }
 
