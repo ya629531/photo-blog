@@ -22,12 +22,23 @@
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 60px 40px;
+            padding: 20px;
         }
 
         header {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 0;
+            position: relative;
+        }
+
+        .site-title-top-left {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 1em;
+            font-weight: 300;
+            line-height: 1.4;
+            color: #fff;
         }
 
         .site-title-small {
@@ -41,26 +52,80 @@
 
         h1 {
             font-size: 3.5em;
-            font-weight: 300;
+            font-weight: 700;
             color: #fff;
             letter-spacing: 0.01em;
             line-height: 1.1;
             margin-top: 0;
-            margin-bottom: 0;
+            margin-bottom: 40px;
+            padding-left: 40px;
+            padding-right: 40px;
         }
 
         .banner {
             width: 100%;
+            margin-top: 20px;
             margin-bottom: 0;
             padding: 0;
         }
 
         .banner-image {
             width: 100%;
+            height: 300px;
+            object-fit: cover;
+            object-position: center 60%;
+            display: block;
+            margin: 0;
+            padding: 0;
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            width: 100%;
+            margin-top: 0;
+            margin-bottom: 0;
+            padding-left: 100px;
+            padding-right: 100px;
+        }
+
+        .photo-post {
+            text-decoration: none;
+            color: #fff;
+            display: block;
+            opacity: 1;
+            transition: opacity 160ms ease;
+        }
+
+        .photo-post:hover {
+            opacity: 0.8;
+        }
+
+        .photo-post-caption {
+            font-size: 1em;
+            font-weight: 300;
+            line-height: 1.4;
+            margin: 0;
+            padding-bottom: 0;
+            color: #fff;
+        }
+
+        .photo-post-image {
+            width: 100%;
             height: auto;
             display: block;
             margin: 0;
             padding: 0;
+        }
+
+        .photo-post-date {
+            font-size: 1em;
+            font-weight: 300;
+            line-height: 1.4;
+            margin: 0;
+            padding: 0;
+            color: #fff;
         }
 
         footer {
@@ -70,30 +135,91 @@
         /* レスポンシブデザイン */
         @media (max-width: 767px) {
             .container {
-                padding: 40px 20px;
+                padding: 10px;
             }
 
             h1 {
                 font-size: 2.5em;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+
+            .photo-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .site-title-top-left {
+                position: static;
+                text-align: center;
+                margin-bottom: 10px;
+            }
+
+            .banner-image {
+                height: 100px;
             }
         }
     </style>
 </head>
 <body>
+    <div class="site-title-top-left">Anyone, Anytime, Anywhere</div>
     <div class="container">
         <header>
-            <div class="site-title-small">Anyone, Anytime, Anywhere</div>
-            <h1>Anyone, Anytime, Anywhere</h1>
         </header>
+    </div>
+    <div class="banner">
+        <img src="images/banner.jpg" alt="Banner" class="banner-image" loading="lazy">
+    </div>
+    <div class="container">
+        <h1>Anyone, Anytime, Anywhere</h1>
 
-        <div class="banner">
-            <img src="Gallery/EP0002_Dummy/images/dummy.jpg" alt="Banner" class="banner-image" loading="lazy">
+        <div class="photo-grid" id="photo-grid">
+            <!-- 写真投稿はJavaScriptで動的に読み込まれます -->
         </div>
 
         <footer>
             <p>&copy; 2025</p>
         </footer>
     </div>
+
+    <script>
+        // 写真投稿（3つを横に並べる）
+        const photoPosts = [
+            { date: '2025/12', description: 'Autumn leaves with a statue in Ueno, Tokyo', image: 'Gallery/EP0001_Ueno/images/resize_DSC01732.JPG', url: 'Gallery/EP0001_Ueno/index.html' },
+            { date: '2025/12', description: 'Golden ginkgo avenue at Meiji Jingu Gaien, Tokyo', image: 'Gallery/EP0001_Ueno/images/resize_DSC01736.JPG', url: 'Gallery/EP0001_Ueno/index.html' },
+            { date: '2025/11', description: 'Rikugien Garden, a famous Japanese garden in Tokyo', image: 'Gallery/EP0001_Ueno/images/resize_DSC01780.JPG', url: 'Gallery/EP0001_Ueno/index.html' }
+        ];
+
+        function loadPhotoGrid() {
+            const gridEl = document.getElementById('photo-grid');
+
+            photoPosts.forEach((post) => {
+                const a = document.createElement('a');
+                a.href = post.url;
+                a.className = 'photo-post';
+
+                const caption = document.createElement('div');
+                caption.className = 'photo-post-caption';
+                caption.textContent = `${post.date} ${post.description}`;
+
+                const img = document.createElement('img');
+                img.src = post.image;
+                img.className = 'photo-post-image';
+                img.alt = post.description;
+                img.loading = 'lazy';
+
+                const date = document.createElement('div');
+                date.className = 'photo-post-date';
+                date.textContent = post.date;
+
+                a.appendChild(img);
+                a.appendChild(caption);
+                a.appendChild(date);
+                gridEl.appendChild(a);
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', loadPhotoGrid);
+    </script>
 
 </body>
 </html>

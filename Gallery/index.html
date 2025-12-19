@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Gallery - Anyone, Anytime, Anywhere</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            line-height: 1.2;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 0;
+            position: relative;
+        }
+
+        .site-title-top-left {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 1em;
+            font-weight: 300;
+            line-height: 1.4;
+            color: #fff;
+        }
+
+        .site-title-top-left a {
+            color: #fff;
+            text-decoration: none;
+            transition: opacity 160ms ease;
+        }
+
+        .site-title-top-left a:hover {
+            opacity: 0.8;
+        }
+
+        h1 {
+            font-size: 2.0em;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 0.01em;
+            line-height: 1.1;
+            margin-top: 0;
+            margin-bottom: 40px;
+            padding-left: 40px;
+            padding-right: 40px;
+        }
+
+        .banner {
+            width: 100%;
+            margin-top: 20px;
+            margin-bottom: 0;
+            padding: 0;
+        }
+
+        .banner-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            object-position: center 60%;
+            display: block;
+            margin: 0;
+            padding: 0;
+        }
+
+        .photo-item {
+            margin-bottom: 0;
+            background-color: #151515;
+            padding: 20px;
+        }
+
+        .photo-caption {
+            margin-bottom: 0;
+            margin-top: 0;
+            font-size: 1em;
+            color: #fff;
+            font-weight: 300;
+            line-height: 1.4;
+            padding-bottom: 0;
+            padding-top: 0;
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 0;
+            padding: 0;
+            vertical-align: bottom;
+        }
+
+        .photo-item-text {
+            margin-top: 20px;
+            font-size: 1em;
+            color: #fff;
+            font-weight: 300;
+            line-height: 1.4;
+        }
+
+        #photo-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            padding-left: 100px;
+            padding-right: 100px;
+        }
+
+        footer {
+            display: none;
+        }
+
+        /* レスポンシブデザイン */
+        @media (max-width: 767px) {
+            .container {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 2.5em;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+
+            .site-title-top-left {
+                position: static;
+                text-align: center;
+                margin-bottom: 10px;
+            }
+
+            .banner-image {
+                height: 100px;
+            }
+
+            #photo-gallery {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="site-title-top-left" id="site-title-top-left"><a href="../index.html">Anyone, Anytime, Anywhere</a> / <span id="episode-name">Loading...</span></div>
+    <div class="container">
+        <header>
+        </header>
+    </div>
+    <div class="banner">
+        <img id="banner-image" src="" alt="Banner" class="banner-image" loading="lazy">
+    </div>
+    <div class="container">
+        <h1 id="page-h1">Loading...</h1>
+
+        <main id="photo-gallery">
+            <!-- 画像はJavaScriptで動的に読み込まれます -->
+        </main>
+    </div>
+
+    <script>
+        // エピソード名を取得する関数
+        function getEpisodeName() {
+            // 1. URLパラメータから取得を試みる
+            const urlParams = new URLSearchParams(window.location.search);
+            const episodeParam = urlParams.get('episode');
+            if (episodeParam) {
+                return episodeParam;
+            }
+
+            // 2. パスから取得を試みる
+            const pathname = window.location.pathname;
+            const href = window.location.href;
+            
+            // デバッグ用（後で削除可能）
+            console.log('Pathname:', pathname);
+            console.log('Href:', href);
+            
+            // 例: /Blog/Gallery/EP0001_Ueno/index.html または /Gallery/EP0001_Ueno/
+            // または file:///Users/.../Blog/Gallery/EP0001_Ueno/index.html
+            const pathParts = pathname.split('/').filter(part => part);
+            
+            // Gallery/EP0001_Ueno/ の形式を探す
+            const galleryIndex = pathParts.indexOf('Gallery');
+            if (galleryIndex !== -1 && pathParts.length > galleryIndex + 1) {
+                const episodeName = pathParts[galleryIndex + 1];
+                // EP0001_ で始まるフォルダ名をチェック
+                if (episodeName && episodeName.startsWith('EP')) {
+                    return episodeName;
+                }
+            }
+
+            // 3. hrefから直接探す（file:// の場合）
+            const hrefMatch = href.match(/Gallery\/(EP\d+_[^\/]+)/);
+            if (hrefMatch) {
+                return hrefMatch[1];
+            }
+
+            return null;
+        }
+
+        // エピソード名を取得
+        const episodeName = getEpisodeName();
+
+        if (!episodeName) {
+            document.body.innerHTML = '<div style="padding: 40px; text-align: center;"><h1>エピソードが見つかりません</h1><p><a href="../index.html" style="color: #fff;">トップページに戻る</a></p></div>';
+        } else {
+            // data.jsonを読み込む
+            const dataPath = `${episodeName}/data.json`;
+            console.log('Loading data from:', dataPath);
+            console.log('Episode name:', episodeName);
+            
+            fetch(dataPath)
+                .then(response => {
+                    console.log('Response status:', response.status);
+                    console.log('Response URL:', response.url);
+                    if (!response.ok) {
+                        throw new Error(`data.jsonが見つかりません (Status: ${response.status}, Path: ${dataPath})`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Data loaded successfully:', data);
+                    // ページタイトルを更新
+                    document.getElementById('page-title').textContent = `${data.title} - Anyone, Anytime, Anywhere`;
+                    
+                    // エピソード名を更新
+                    document.getElementById('episode-name').textContent = data.title;
+                    
+                    // h1を更新
+                    document.getElementById('page-h1').textContent = data.h1;
+                    
+                    // バナー画像を設定
+                    const bannerImg = document.getElementById('banner-image');
+                    bannerImg.src = `${episodeName}/images/banner.jpg`;
+                    
+                    // 画像を表示
+                    loadImages(data, episodeName);
+                })
+                .catch(error => {
+                    console.error('Error loading data:', error);
+                    console.error('Error details:', {
+                        message: error.message,
+                        episodeName: episodeName,
+                        dataPath: dataPath,
+                        currentPath: window.location.pathname,
+                        currentHref: window.location.href
+                    });
+                    document.body.innerHTML = `<div style="padding: 40px; text-align: center;"><h1>データの読み込みに失敗しました</h1><p>${error.message}</p><p>エピソード: ${episodeName}</p><p>パス: ${dataPath}</p><p style="font-size: 0.8em; color: #888;">ブラウザのコンソール（F12）で詳細を確認してください</p><p><a href="../index.html" style="color: #fff;">トップページに戻る</a></p></div>`;
+                });
+        }
+
+        // 画像を表示する関数
+        function loadImages(data, episodeName) {
+            const gallery = document.getElementById('photo-gallery');
+            
+            if (!data.images || data.images.length === 0) {
+                gallery.innerHTML = '<p style="text-align: center; padding: 40px;">画像がありません</p>';
+                return;
+            }
+            
+            data.images.forEach((item) => {
+                const photoItem = document.createElement('div');
+                photoItem.className = 'photo-item';
+                
+                const img = document.createElement('img');
+                img.src = `${episodeName}/images/${item.file}`;
+                img.alt = item.description || '';
+                img.loading = 'lazy';
+                img.style.display = 'block';
+                img.style.margin = '0';
+                img.style.padding = '0';
+                
+                const text = document.createElement('div');
+                text.className = 'photo-item-text';
+                text.textContent = item.exifText || ''; // EXIF情報など
+                
+                photoItem.appendChild(img);
+                photoItem.appendChild(text);
+                gallery.appendChild(photoItem);
+            });
+        }
+    </script>
+</body>
+</html>

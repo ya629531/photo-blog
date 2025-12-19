@@ -9,6 +9,7 @@
 **構造**:
 ```html
 <header>
+  <div class="site-title-top-left">Anyone, Anytime, Anywhere</div>
   <div class="site-title-small">Anyone, Anytime, Anywhere</div>
   <h1>Anyone, Anytime, Anywhere</h1>
 </header>
@@ -17,6 +18,16 @@
 **スタイル**:
 - `text-align: center`
 - `margin-bottom: 60px`
+- `position: relative`
+
+**左上のタイトル（.site-title-top-left）**:
+- `position: absolute`
+- `top: 0`
+- `left: 0`
+- `font-size: 1em`
+- `font-weight: 300`
+- `line-height: 1.4`
+- `color: #fff`
 
 **小さいタイトル（.site-title-small）**:
 - `font-size: 1em`
@@ -58,6 +69,72 @@
 - `margin: 0`
 - `padding: 0`
 - `loading: "lazy"`
+
+---
+
+### Photo Post Grid コンポーネント
+
+**場所**: `.container > .photo-grid`（バナーの下）
+
+**構造**:
+```html
+<div class="photo-grid">
+  <a href="..." class="photo-post">
+    <div class="photo-post-caption">日付 説明文</div>
+    <img src="..." class="photo-post-image" alt="...">
+    <div class="photo-post-date">日付</div>
+  </a>
+  <!-- 複数の投稿が横に並ぶ -->
+</div>
+```
+
+**データ構造**:
+```javascript
+const photoPosts = [
+  {
+    date: 'YYYY/MM',
+    description: '説明文',
+    image: 'Gallery/EP####_名前/images/ファイル名.JPG',
+    url: 'Gallery/EP####_名前/index.html'
+  }
+];
+```
+
+**Photo Grid（.photo-grid）**:
+- `display: grid`
+- `grid-template-columns: repeat(3, 1fr)`
+- `gap: 0`
+- `width: 100%`
+
+**Photo Post（.photo-post）**:
+- `text-decoration: none`
+- `color: #fff`
+- `display: block`
+- `opacity: 1`
+- `transition: opacity 160ms ease`
+- ホバー時: `opacity: 0.8`
+
+**Photo Post Caption（.photo-post-caption）**:
+- `font-size: 1em`
+- `font-weight: 300`
+- `line-height: 1.4`
+- `margin: 0`
+- `padding-bottom: 0`
+
+**Photo Post Image（.photo-post-image）**:
+- `width: 100%`
+- `height: auto`
+- `display: block`
+- `margin: 0`
+- `padding: 0`
+- `loading: "lazy"`
+
+**Photo Post Date（.photo-post-date）**:
+- `font-size: 1em`
+- `font-weight: 300`
+- `line-height: 1.4`
+- `margin: 0`
+- `padding: 0`
 
 ---
 
@@ -160,3 +237,4 @@ const imageData = [
 3. CSSスタイルを定義
 4. JavaScript関数を定義（必要に応じて）
 5. 実装後に動作確認
+

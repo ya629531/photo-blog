@@ -51,3 +51,4 @@ Blog/
 1. `Gallery/EP0002_名前/` フォルダを作成
 2. その中に `index.html` と `images/` フォルダを作成
 3. 個別ページの `imageData` 配列に画像情報を追加
+
