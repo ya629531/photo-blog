@@ -1,7 +1,11 @@
 {
   "title": "EP0004 Maeda",
-  "fullTitle": "Former Maeda Family Main House, a nationally designated Important Cultural Property, Tokyo.",
+  "fullTitle": "Former Maeda Family Main House, Important Cultural Property, Tokyo",
   "bannerPosition": "60%",
+  "description": {
+    "en": "The Former Maeda Family Main House is a nationally designated Important Cultural Property located in Tokyo. This historic residence was built in the early 20th century and represents a significant example of Japanese architecture from that period. The house belonged to the Maeda family, who were prominent figures in Japanese society. The building showcases traditional Japanese design elements combined with modern construction techniques of the era. Its elegant structure, carefully preserved over the decades, offers visitors a glimpse into the lifestyle and architectural tastes of early 20th-century Japan. The property stands as a testament to Japan's architectural heritage and the importance of preserving historical buildings.",
+    "ja": "旧前田家本邸は、東京にある国の重要文化財に指定されている歴史的な住宅です。この歴史的な邸宅は20世紀初頭に建てられ、その時代の日本建築の重要な例を表しています。この家は、日本社会で著名な人物であった前田家に属していました。建物は、伝統的な日本のデザイン要素と、その時代の現代的な建築技術を組み合わせたものを示しています。何十年にもわたって慎重に保存されてきたその優雅な構造は、訪問者に20世紀初頭の日本の生活様式と建築の好みを垣間見せてくれます。この建物は、日本の建築遺産と歴史的建造物を保存することの重要性の証として立っています。"
+  },
   "images": [
     "DSC02275.JPG",
     "DSC02277.JPG",
