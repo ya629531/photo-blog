@@ -214,15 +214,19 @@
                                 const data = await response.json();
                                 
                                 // banner画像のパスを構築
-                                // banner.jpgが見つからない場合は最初の画像を使用
-                                let bannerImage = `Gallery/${episode}/images/banner.jpg`;
-                                
-                                // banner.jpgが見つからない場合のフォールバック
-                                if (data.images && data.images.length > 0) {
-                                    const isStringArray = typeof data.images[0] === 'string';
-                                    const firstImage = isStringArray ? data.images[0] : data.images[0].file;
-                                    // banner.jpgが見つからない場合は最初の画像を使用（エラーハンドリングで対応）
-                                    // 実際のエラーハンドリングは画像読み込み時にonerrorで処理
+                                // EP0004_Maedaの場合はimages/フォルダがないため、最初の画像を直接使用
+                                let bannerImage;
+                                if (episode === 'EP0004_Maeda') {
+                                    // EP0004の場合は最初の画像をbannerとして使用
+                                    if (data.images && data.images.length > 0) {
+                                        const isStringArray = typeof data.images[0] === 'string';
+                                        const firstImage = isStringArray ? data.images[0] : data.images[0].file;
+                                        bannerImage = `Gallery/${episode}/${firstImage}`;
+                                    } else {
+                                        bannerImage = `Gallery/${episode}/images/banner.jpg`; // フォールバック
+                                    }
+                                } else {
+                                    bannerImage = `Gallery/${episode}/images/banner.jpg`;
                                 }
                                 
                                 // エピソード番号を抽出
@@ -267,7 +271,11 @@
                     // banner.jpgが見つからない場合、最初の画像を使用
                     img.onerror = function() {
                         if (post.firstImage) {
-                            this.src = `Gallery/${post.episode}/images/${post.firstImage}`;
+                            // EP0004_Maedaの場合はimages/フォルダがないため、パスを変更
+                            const fallbackPath = post.episode === 'EP0004_Maeda'
+                                ? `Gallery/${post.episode}/${post.firstImage}`
+                                : `Gallery/${post.episode}/images/${post.firstImage}`;
+                            this.src = fallbackPath;
                             this.onerror = null; // 無限ループを防ぐ
                         }
                     };
