@@ -279,9 +279,12 @@
                 return;
             }
             
+            // imagesが文字列配列かオブジェクト配列かを判定
+            const isStringArray = typeof data.images[0] === 'string';
+            
             // banner.jpgを除外して画像を表示
             const filteredImages = data.images.filter(item => {
-                const fileName = item.file.toLowerCase();
+                const fileName = (isStringArray ? item : item.file).toLowerCase();
                 return fileName !== 'banner.jpg' && fileName !== 'banner.jpeg';
             });
             
@@ -294,9 +297,12 @@
                 const photoItem = document.createElement('div');
                 photoItem.className = 'photo-item';
                 
+                // 文字列配列の場合はそのまま、オブジェクト配列の場合はitem.fileを使用
+                const fileName = isStringArray ? item : item.file;
+                
                 const img = document.createElement('img');
-                img.src = `${episodeName}/images/${item.file}`;
-                img.alt = item.description || '';
+                img.src = `${episodeName}/images/${fileName}`;
+                img.alt = isStringArray ? '' : (item.description || '');
                 img.loading = 'lazy';
                 img.style.display = 'block';
                 img.style.margin = '0';
@@ -363,7 +369,7 @@
                     };
                 } else {
                     // EXIF.jsが読み込まれていない場合
-                    text.textContent = item.exifText || '';
+                    text.textContent = isStringArray ? '' : (item.exifText || '');
                 }
                 
                 photoItem.appendChild(img);

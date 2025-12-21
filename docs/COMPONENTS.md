@@ -166,11 +166,20 @@ const photoPosts = [
 
 **データ構造**:
 ```javascript
+// 文字列配列形式（推奨）
+const imageData = [
+  'DSCF0973_resize.JPG',
+  'DSCF0985_resize.JPG',
+  // ... ファイル名順に並べる
+];
+
+// または、オブジェクト配列形式（後方互換性のため）
 const imageData = [
   {
-    file: 'resize_DSC####.JPG',
+    file: 'DSCF0973_resize.JPG',
     date: 'YYYY/MM',
-    description: '説明文'
+    description: '説明文',
+    exifText: ''
   }
 ];
 ```
