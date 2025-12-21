@@ -8,6 +8,7 @@
 Blog/
 ├── README.md                    # プロジェクト概要
 ├── index.html                   # トップページ（サイトタイトルを表示）
+├── data.json                    # エピソードリスト（トップページで使用）
 ├── .cursorrules                 # Cursor用のプロジェクトルール
 ├── .gitignore
 ├── docs/                        # ドキュメントフォルダ
@@ -18,6 +19,7 @@ Blog/
 └── Gallery/                     # 各写真集フォルダ
     └── EP0001_Ueno/            # 写真集1（EP0001_Ueno形式）
         ├── index.html          # 写真集の個別ページ
+        ├── data.json           # エピソードのメタデータ
         └── images/             # この写真集専用の画像
             ├── resize_DSC01732.JPG
             ├── resize_DSC01736.JPG
@@ -28,6 +30,13 @@ Blog/
 
 ### トップページ（index.html）
 - サイトタイトル「Anyone, Anytime, Anywhere」を表示
+- `data.json`からエピソードリストを読み込んで表示
+- エピソード番号で降順ソート（EP0003 → EP0002 → EP0001）
+
+### エピソードリスト（data.json）
+- トップレベルに配置
+- エピソード名（フォルダ名）の配列を管理
+- 新しいエピソードを追加する際は、このファイルにエピソード名を追加
 
 ### 各写真集フォルダ（Gallery/）
 - 各写真集は独立したフォルダとして管理

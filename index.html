@@ -182,62 +182,98 @@
     </div>
 
     <script>
-        // 写真投稿（3つを横に並べる）
-        const photoPosts = [
-            { date: '2025/12', episode: 'EP0001_Suikeien', image: 'Gallery/EP0001_Suikeien/images/banner.jpg', url: 'Gallery/EP0001_Suikeien/index.html' },
-            { date: '2025/11', episode: 'EP0002_Rikugien', image: 'Gallery/EP0002_Rikugien/images/banner.jpg', url: 'Gallery/EP0002_Rikugien/index.html' },
-            { date: '2025/12', episode: 'EP0003_Gaien', image: 'Gallery/EP0003_Gaien/images/banner.jpg', url: 'Gallery/EP0003_Gaien/index.html' }
-        ];
-
         async function loadPhotoGrid() {
             const gridEl = document.getElementById('photo-grid');
 
-            // 各エピソードのdata.jsonを読み込んでfullTitleを取得
-            const postsWithTitles = await Promise.all(
-                photoPosts.map(async (post) => {
-                    try {
-                        const response = await fetch(`Gallery/${post.episode}/data.json`);
-                        if (response.ok) {
-                            const data = await response.json();
-                            return {
-                                ...post,
-                                description: data.fullTitle || data.title || post.episode
-                            };
+            try {
+                // 1. Blog/data.jsonを読み込む
+                const siteDataResponse = await fetch('data.json');
+                if (!siteDataResponse.ok) {
+                    throw new Error('data.jsonが見つかりません');
+                }
+                const siteData = await siteDataResponse.json();
+
+                // 2. エピソード番号を抽出して降順でソート
+                const sortedEpisodes = siteData.episodes
+                    .map(episode => {
+                        const match = episode.match(/EP(\d+)/);
+                        return {
+                            episode,
+                            episodeNum: match ? parseInt(match[1]) : 0
+                        };
+                    })
+                    .sort((a, b) => b.episodeNum - a.episodeNum) // 降順
+                    .map(item => item.episode);
+
+                // 3. 各エピソードのdata.jsonを読み込んで情報を取得
+                const posts = await Promise.all(
+                    sortedEpisodes.map(async (episode) => {
+                        try {
+                            const response = await fetch(`Gallery/${episode}/data.json`);
+                            if (response.ok) {
+                                const data = await response.json();
+                                
+                                // banner画像のパスを構築
+                                // banner.jpgが見つからない場合は最初の画像を使用
+                                let bannerImage = `Gallery/${episode}/images/banner.jpg`;
+                                
+                                // banner.jpgが見つからない場合のフォールバック
+                                if (data.images && data.images.length > 0) {
+                                    const isStringArray = typeof data.images[0] === 'string';
+                                    const firstImage = isStringArray ? data.images[0] : data.images[0].file;
+                                    // banner.jpgが見つからない場合は最初の画像を使用（エラーハンドリングで対応）
+                                    // 実際のエラーハンドリングは画像読み込み時にonerrorで処理
+                                }
+                                
+                                return {
+                                    episode,
+                                    description: data.fullTitle || data.title || episode,
+                                    image: bannerImage,
+                                    url: `Gallery/${episode}/index.html`,
+                                    firstImage: data.images && data.images.length > 0 
+                                        ? (typeof data.images[0] === 'string' ? data.images[0] : data.images[0].file)
+                                        : null
+                                };
+                            }
+                        } catch (error) {
+                            console.error(`Error loading data for ${episode}:`, error);
                         }
-                    } catch (error) {
-                        console.error(`Error loading data for ${post.episode}:`, error);
-                    }
-                    return {
-                        ...post,
-                        description: post.episode
+                        return null;
+                    })
+                );
+
+                // 4. nullを除外して表示
+                posts.filter(post => post !== null).forEach((post) => {
+                    const a = document.createElement('a');
+                    a.href = post.url;
+                    a.className = 'photo-post';
+
+                    const caption = document.createElement('div');
+                    caption.className = 'photo-post-caption';
+                    caption.textContent = post.description;
+
+                    const img = document.createElement('img');
+                    img.src = post.image;
+                    img.className = 'photo-post-image';
+                    img.alt = post.description;
+                    img.loading = 'lazy';
+                    
+                    // banner.jpgが見つからない場合、最初の画像を使用
+                    img.onerror = function() {
+                        if (post.firstImage) {
+                            this.src = `Gallery/${post.episode}/images/${post.firstImage}`;
+                            this.onerror = null; // 無限ループを防ぐ
+                        }
                     };
-                })
-            );
 
-            postsWithTitles.forEach((post) => {
-                const a = document.createElement('a');
-                a.href = post.url;
-                a.className = 'photo-post';
-
-                const caption = document.createElement('div');
-                caption.className = 'photo-post-caption';
-                caption.textContent = `${post.date} ${post.description}`;
-
-                const img = document.createElement('img');
-                img.src = post.image;
-                img.className = 'photo-post-image';
-                img.alt = post.description;
-                img.loading = 'lazy';
-
-                const date = document.createElement('div');
-                date.className = 'photo-post-date';
-                date.textContent = post.date;
-
-                a.appendChild(img);
-                a.appendChild(caption);
-                a.appendChild(date);
-                gridEl.appendChild(a);
-            });
+                    a.appendChild(img);
+                    a.appendChild(caption);
+                    gridEl.appendChild(a);
+                });
+            } catch (error) {
+                console.error('Error loading photo grid:', error);
+                gridEl.innerHTML = '<p style="text-align: center; padding: 40px; color: #fff;">写真の読み込みに失敗しました</p>';
+            }
         }
 
         window.addEventListener('DOMContentLoaded', loadPhotoGrid);

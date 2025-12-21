@@ -88,17 +88,21 @@
 </div>
 ```
 
-**データ構造**:
-```javascript
-const photoPosts = [
-  {
-    date: 'YYYY/MM',
-    description: '説明文',
-    image: 'Gallery/EP####_名前/images/ファイル名.JPG',
-    url: 'Gallery/EP####_名前/index.html'
-  }
-];
+**データ構造（Blog/data.json）**:
+```json
+{
+  "episodes": [
+    "EP0001_Suikeien",
+    "EP0002_Rikugien",
+    "EP0003_Gaien"
+  ]
+}
 ```
+
+**episodes配列**:
+- エピソード名（フォルダ名）を文字列で列挙
+- エピソード番号で降順ソート（EP0003 → EP0002 → EP0001）
+- 各エピソードの`Gallery/EP####_名前/data.json`から`fullTitle`を取得して表示
 
 **Photo Grid（.photo-grid）**:
 - `display: grid`
