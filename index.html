@@ -225,8 +225,13 @@
                                     // 実際のエラーハンドリングは画像読み込み時にonerrorで処理
                                 }
                                 
+                                // エピソード番号を抽出
+                                const episodeMatch = episode.match(/EP(\d+)/);
+                                const episodeNum = episodeMatch ? parseInt(episodeMatch[1]) : 0;
+                                
                                 return {
                                     episode,
+                                    episodeNum,
                                     description: data.fullTitle || data.title || episode,
                                     image: bannerImage,
                                     url: `Gallery/${episode}/index.html`,
@@ -250,7 +255,8 @@
 
                     const caption = document.createElement('div');
                     caption.className = 'photo-post-caption';
-                    caption.textContent = post.description;
+                    // Episode #3(改行)fullTitle の形式で表示
+                    caption.innerHTML = `Episode #${post.episodeNum}<br>${post.description}`;
 
                     const img = document.createElement('img');
                     img.src = post.image;
