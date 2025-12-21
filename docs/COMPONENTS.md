@@ -148,6 +148,31 @@ const photoPosts = [
 
 ---
 
+### Banner コンポーネント
+
+**場所**: `.banner > .banner-image`
+
+**データ構造（data.json）**:
+```json
+{
+  "title": "EP0001 Suikeien",
+  "fullTitle": "Suikeien Garden at Shibamata Taishakuten in the rain, Tokyo",
+  "bannerPosition": "60%",
+  "images": [...]
+}
+```
+
+**bannerPosition**:
+- バナー画像の縦方向の表示位置を指定（パーセンテージ）
+- デフォルト値: `"60%"`
+- 例: `"50%"`（中央）、`"30%"`（上部寄り）、`"80%"`（下部寄り）
+- `object-position: center {bannerPosition}`として適用される
+
+**動作**:
+- `banner.jpg`または`banner.jpeg`が見つからない場合、`images`配列の最初の画像をbannerとして使用
+
+---
+
 ### Photo Gallery コンポーネント
 
 **場所**: `.container > main#photo-gallery`
@@ -164,25 +189,23 @@ const photoPosts = [
 </main>
 ```
 
-**データ構造**:
-```javascript
-// 文字列配列形式（推奨）
-const imageData = [
-  'DSCF0973_resize.JPG',
-  'DSCF0985_resize.JPG',
-  // ... ファイル名順に並べる
-];
-
-// または、オブジェクト配列形式（後方互換性のため）
-const imageData = [
-  {
-    file: 'DSCF0973_resize.JPG',
-    date: 'YYYY/MM',
-    description: '説明文',
-    exifText: ''
-  }
-];
+**データ構造（data.json）**:
+```json
+{
+  "title": "EP0001 Suikeien",
+  "fullTitle": "Suikeien Garden at Shibamata Taishakuten in the rain, Tokyo",
+  "bannerPosition": "60%",
+  "images": [
+    "DSCF0973_resize.JPG",
+    "DSCF0985_resize.JPG",
+    // ... ファイル名順に並べる
+  ]
+}
 ```
+
+**images配列**:
+- 文字列配列形式（推奨）: ファイル名の文字列配列
+- オブジェクト配列形式（後方互換性のため）: 各画像の詳細情報を含むオブジェクト配列
 
 **Photo Item（.photo-item）**:
 - `margin-bottom: 0`
