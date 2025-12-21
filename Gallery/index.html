@@ -334,6 +334,45 @@
         function loadImages(data, episodeName) {
             const gallery = document.getElementById('photo-gallery');
             
+            // 解説文を最初に表示（h1と最初の写真の間）
+            if (data.description && (data.description.en || data.description.ja)) {
+                const descriptionItem = document.createElement('div');
+                descriptionItem.className = 'photo-item';
+                descriptionItem.style.paddingTop = '0';
+                descriptionItem.style.paddingBottom = '60px';
+                descriptionItem.style.textAlign = 'center';
+                descriptionItem.style.maxWidth = '800px';
+                descriptionItem.style.margin = '0 auto';
+                
+                const descriptionContent = document.createElement('div');
+                descriptionContent.style.fontFamily = 'Georgia, "Times New Roman", serif';
+                descriptionContent.style.fontStyle = 'italic';
+                descriptionContent.style.fontSize = '1.2em';
+                descriptionContent.style.lineHeight = '2';
+                descriptionContent.style.color = '#fff';
+                descriptionContent.style.fontWeight = '300';
+                descriptionContent.style.letterSpacing = '0.02em';
+                
+                if (data.description.en) {
+                    const enParagraph = document.createElement('p');
+                    enParagraph.style.marginBottom = '30px';
+                    enParagraph.style.marginTop = '0';
+                    enParagraph.textContent = data.description.en;
+                    descriptionContent.appendChild(enParagraph);
+                }
+                
+                if (data.description.ja) {
+                    const jaParagraph = document.createElement('p');
+                    jaParagraph.style.marginBottom = '0';
+                    jaParagraph.style.marginTop = '0';
+                    jaParagraph.textContent = data.description.ja;
+                    descriptionContent.appendChild(jaParagraph);
+                }
+                
+                descriptionItem.appendChild(descriptionContent);
+                gallery.appendChild(descriptionItem);
+            }
+            
             if (!data.images || data.images.length === 0) {
                 gallery.innerHTML = '<p style="text-align: center; padding: 40px;">画像がありません</p>';
                 return;
@@ -448,41 +487,6 @@
                 photoItem.appendChild(text);
                 gallery.appendChild(photoItem);
             });
-            
-            // 解説文を写真の最後に表示
-            if (data.description && (data.description.en || data.description.ja)) {
-                const descriptionItem = document.createElement('div');
-                descriptionItem.className = 'photo-item';
-                descriptionItem.style.paddingTop = '40px';
-                
-                const descriptionContent = document.createElement('div');
-                descriptionContent.className = 'photo-item-text';
-                descriptionContent.style.lineHeight = '1.8';
-                descriptionContent.style.marginTop = '0';
-                
-                if (data.description.en) {
-                    const enParagraph = document.createElement('p');
-                    enParagraph.style.marginBottom = '20px';
-                    enParagraph.style.color = '#fff';
-                    enParagraph.style.fontSize = '1em';
-                    enParagraph.style.fontWeight = '300';
-                    enParagraph.textContent = data.description.en;
-                    descriptionContent.appendChild(enParagraph);
-                }
-                
-                if (data.description.ja) {
-                    const jaParagraph = document.createElement('p');
-                    jaParagraph.style.marginBottom = '0';
-                    jaParagraph.style.color = '#fff';
-                    jaParagraph.style.fontSize = '1em';
-                    jaParagraph.style.fontWeight = '300';
-                    jaParagraph.textContent = data.description.ja;
-                    descriptionContent.appendChild(jaParagraph);
-                }
-                
-                descriptionItem.appendChild(descriptionContent);
-                gallery.appendChild(descriptionItem);
-            }
         }
     </script>
 </body>
