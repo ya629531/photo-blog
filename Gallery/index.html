@@ -469,7 +469,10 @@
                     const enParagraph = document.createElement('p');
                     enParagraph.style.marginBottom = '30px';
                     enParagraph.style.marginTop = '0';
-                    enParagraph.textContent = data.description.en;
+                    // 配列の場合は結合、文字列の場合はそのまま使用（後方互換性）
+                    enParagraph.textContent = Array.isArray(data.description.en) 
+                        ? data.description.en.join(' ') 
+                        : data.description.en;
                     descriptionContent.appendChild(enParagraph);
                 }
                 
@@ -477,7 +480,10 @@
                     const jaParagraph = document.createElement('p');
                     jaParagraph.style.marginBottom = '0';
                     jaParagraph.style.marginTop = '0';
-                    jaParagraph.textContent = data.description.ja;
+                    // 配列の場合は結合、文字列の場合はそのまま使用（後方互換性）
+                    jaParagraph.textContent = Array.isArray(data.description.ja) 
+                        ? data.description.ja.join(' ') 
+                        : data.description.ja;
                     descriptionContent.appendChild(jaParagraph);
                 }
                 
