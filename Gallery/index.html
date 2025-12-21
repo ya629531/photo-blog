@@ -278,14 +278,19 @@
         function setBannerImage(data, episodeName, bannerImg) {
             let triedBannerJpeg = false;
             
-            // EP0004_Maedaの場合はimages/フォルダがないため、最初の画像を直接使用
+            // EP0004_Maedaの場合はimages/フォルダがないため、banner.JPGを試す
             if (episodeName === 'EP0004_Maeda') {
-                if (data.images && data.images.length > 0) {
-                    const isStringArray = typeof data.images[0] === 'string';
-                    const firstImage = isStringArray ? data.images[0] : data.images[0].file;
-                    bannerImg.src = `${episodeName}/${firstImage}`;
-                    return;
-                }
+                bannerImg.src = `${episodeName}/banner.JPG`;
+                bannerImg.onerror = function() {
+                    // banner.JPGが見つからない場合、最初の画像を使用
+                    if (data.images && data.images.length > 0) {
+                        const isStringArray = typeof data.images[0] === 'string';
+                        const firstImage = isStringArray ? data.images[0] : data.images[0].file;
+                        this.src = `${episodeName}/${firstImage}`;
+                        this.onerror = null; // 無限ループを防ぐ
+                    }
+                };
+                return;
             }
             
             // banner.jpgを試す

@@ -214,17 +214,11 @@
                                 const data = await response.json();
                                 
                                 // banner画像のパスを構築
-                                // EP0004_Maedaの場合はimages/フォルダがないため、最初の画像を直接使用
+                                // EP0004_Maedaの場合はimages/フォルダがないため、banner.JPGを優先的に使用
                                 let bannerImage;
                                 if (episode === 'EP0004_Maeda') {
-                                    // EP0004の場合は最初の画像をbannerとして使用
-                                    if (data.images && data.images.length > 0) {
-                                        const isStringArray = typeof data.images[0] === 'string';
-                                        const firstImage = isStringArray ? data.images[0] : data.images[0].file;
-                                        bannerImage = `Gallery/${episode}/${firstImage}`;
-                                    } else {
-                                        bannerImage = `Gallery/${episode}/images/banner.jpg`; // フォールバック
-                                    }
+                                    // EP0004の場合はbanner.JPGを優先、見つからない場合は最初の画像を使用
+                                    bannerImage = `Gallery/${episode}/banner.JPG`;
                                 } else {
                                     bannerImage = `Gallery/${episode}/images/banner.jpg`;
                                 }
@@ -268,7 +262,7 @@
                     img.alt = post.description;
                     img.loading = 'lazy';
                     
-                    // banner.jpgが見つからない場合、最初の画像を使用
+                    // banner画像が見つからない場合、最初の画像を使用
                     img.onerror = function() {
                         if (post.firstImage) {
                             // EP0004_Maedaの場合はimages/フォルダがないため、パスを変更
