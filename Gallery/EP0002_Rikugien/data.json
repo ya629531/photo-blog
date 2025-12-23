@@ -19,191 +19,21 @@
     ]
   },
   "images": [
-    {
-      "file": "DSC01615_resize.JPG",
-      "date": "2025/12",
-      "description": "",
-      "exifText": ""
-    },
-    {
-      "file": "DSC01616_resize.JPG",
-      "date": "2025/12",
-      "description": "",
-      "exifText": ""
-    },
-    {
-      "file": "DSC01617_resize.JPG",
-      "date": "2025/12",
-      "description": "",
-      "exifText": ""
-    },
-    {
-      "file": "DSC01618_resize.JPG",
-      "date": "2025/12",
-      "description": "",
-      "exifText": ""
-    },
-    {
-      "file": "DSC01625_resize.JPG",
-      "date": "2025/12",
-      "description": "",
-      "exifText": ""
-    },
-    {
-      "file": "DSC01636_resize.JPG",
-      "date": "2025/12",
-      "description": "",
-      "exifText": ""
-    },
-    {
-      "file": "DSC01637_resize.JPG",
-      "date": "2025/12",
-      "description": "",
-      "exifText": ""
-    },
-    {
-      "file": "DSC01647_resize.JPG",
-      "date": "2025/12",
-      "description": "",
-      "exifText": ""
-    },
-    {
-      "file": "DSC01649_resize.JPG",
-      "date": "2025/12",
-      "description": "",
-      "exifText": ""
-    },
-    {
-      "file": "DSC01653_resize.JPG",
-      "date": "2025/12",
-      "description": "",
-      "exifText": ""
-    },
-    {
-      "file": "DSC01655_resize.JPG",
-      "date": "2025/12",
-      "description": "",
-      "exifText": ""
-    },
-    {
-      "file": "DSC01658_resize.JPG",
-      "date": "2025/12",
-      "description": "",
-      "exifText": ""
-    },
-    {
-      "file": "DSC01660_resize.JPG",
-      "date": "2025/12",
-      "description": "",
-      "exifText": ""
-    },
-    {
-      "file": "DSC01661_resize.JPG",
-      "date": "2025/12",
-      "description": "",
-      "exifText": ""
-    },
-    {
-      "file": "DSC01663_resize.JPG",
-      "date": "2025/12",
-      "description": "",
-      "exifText": ""
-    },
-    {
-      "file": "DSC01671_resize.JPG",
-      "date": "2025/12",
-      "description": "",
-      "exifText": ""
-    },
-    {
-      "file": "DSC01675_resize.JPG",
-      "date": "2025/12",
-      "description": "",
-      "exifText": ""
-    },
-    {
-      "file": "DSC01678_resize.JPG",
-      "date": "2025/12",
-      "description": "",
-      "exifText": ""
-    },
-    {
-      "file": "DSC01680_resize.JPG",
-      "date": "2025/12",
-      "description": "",
-      "exifText": ""
-    },
-    {
-      "file": "DSC01681_resize.JPG",
-      "date": "2025/12",
-      "description": "",
-      "exifText": ""
-    },
-    {
-      "file": "DSC01684_resize.JPG",
-      "date": "2025/12",
-      "description": "",
-      "exifText": ""
-    },
-    {
-      "file": "DSC01693_resize.JPG",
-      "date": "2025/12",
-      "description": "",
-      "exifText": ""
-    },
-    {
-      "file": "DSC01698_resize.JPG",
-      "date": "2025/12",
-      "description": "",
-      "exifText": ""
-    },
-    {
-      "file": "DSC01703_resize.JPG",
-      "date": "2025/12",
-      "description": "",
-      "exifText": ""
-    },
-    {
-      "file": "DSC01704_resize.JPG",
-      "date": "2025/12",
-      "description": "",
-      "exifText": ""
-    },
-    {
-      "file": "DSC01709_resize.JPG",
-      "date": "2025/12",
-      "description": "",
-      "exifText": ""
-    },
-    {
-      "file": "DSC01711_resize.JPG",
-      "date": "2025/12",
-      "description": "",
-      "exifText": ""
-    },
-    {
-      "file": "DSC01714_resize.JPG",
-      "date": "2025/12",
-      "description": "",
-      "exifText": ""
-    },
-    {
-      "file": "DSC01717_resize.JPG",
-      "date": "2025/12",
-      "description": "",
-      "exifText": ""
-    },
-    {
-      "file": "DSC01720_resize.JPG",
-      "date": "2025/12",
-      "description": "",
-      "exifText": ""
-    },
-    {
-      "file": "DSC01723_resize.JPG",
-      "date": "2025/12",
-      "description": "",
-      "exifText": ""
-    }
+    "DSC01615_resize.JPG",
+    "DSC01616_resize.JPG",
+    "DSC01617_resize.JPG",
+    "DSC01625_resize.JPG",
+    "DSC01636_resize.JPG",
+    "DSC01637_resize.JPG",
+    "DSC01655_resize.JPG",
+    "DSC01658_resize.JPG",
+    "DSC01660_resize.JPG",
+    "DSC01663_resize.JPG",
+    "DSC01671_resize.JPG",
+    "DSC01678_resize.JPG",
+    "DSC01680_resize.JPG",
+    "DSC01684_resize.JPG",
+    "DSC01709_resize.JPG",
+    "DSC01711_resize.JPG"
   ]
 }
