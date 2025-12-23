@@ -241,11 +241,16 @@
                     // fullTitleがあればそれを使用、なければtitleを使用
                     const displayTitle = data.fullTitle || data.title;
                     
+                    // エピソード番号を抽出（EP0001_Suikeien -> 1）
+                    const episodeMatch = episodeNameClean.match(/EP(\d+)/);
+                    const episodeNum = episodeMatch ? parseInt(episodeMatch[1]) : 0;
+                    const episodeLabel = `Episode #${episodeNum}`;
+                    
                     // ページタイトルを更新
                     document.getElementById('page-title').textContent = `${displayTitle} - Anyone, Anytime, Anywhere`;
                     
-                    // エピソード名を更新
-                    document.getElementById('episode-name').textContent = displayTitle;
+                    // エピソード名を更新（Episode #1形式）
+                    document.getElementById('episode-name').textContent = episodeLabel;
                     
                     // h1を更新（fullTitleを使用）
                     document.getElementById('page-h1').textContent = displayTitle;
