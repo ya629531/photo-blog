@@ -214,10 +214,13 @@
                                 const data = await response.json();
                                 
                                 // banner画像のパスを構築
-                                // EP0004_Maedaの場合はimages/フォルダがないため、banner.JPGを優先的に使用
+                                // EP0004_MaedaとEP0005_Fushimiの場合はimages/フォルダがないため、banner.JPGを優先的に使用
                                 let bannerImage;
                                 if (episode === 'EP0004_Maeda') {
                                     // EP0004の場合はbanner.JPGを優先、見つからない場合は最初の画像を使用
+                                    bannerImage = `Gallery/${episode}/banner.JPG`;
+                                } else if (episode === 'EP0005_Fushimi') {
+                                    // EP0005の場合はbanner.JPGを優先、見つからない場合は最初の画像を使用
                                     bannerImage = `Gallery/${episode}/banner.JPG`;
                                 } else {
                                     bannerImage = `Gallery/${episode}/images/banner.jpg`;
@@ -265,8 +268,8 @@
                     // banner画像が見つからない場合、最初の画像を使用
                     img.onerror = function() {
                         if (post.firstImage) {
-                            // EP0004_Maedaの場合はimages/フォルダがないため、パスを変更
-                            const fallbackPath = post.episode === 'EP0004_Maeda'
+                            // EP0004_MaedaとEP0005_Fushimiの場合はimages/フォルダがないため、パスを変更
+                            const fallbackPath = (post.episode === 'EP0004_Maeda' || post.episode === 'EP0005_Fushimi')
                                 ? `Gallery/${post.episode}/${post.firstImage}`
                                 : `Gallery/${post.episode}/images/${post.firstImage}`;
                             this.src = fallbackPath;
