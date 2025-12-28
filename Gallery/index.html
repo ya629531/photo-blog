@@ -283,8 +283,8 @@
         function setBannerImage(data, episodeName, bannerImg) {
             let triedBannerJpeg = false;
             
-            // EP0004_Maedaの場合はimages/フォルダがないため、banner.JPGを試す
-            if (episodeName === 'EP0004_Maeda') {
+            // EP0004_MaedaとEP0005_Fushimiの場合はimages/フォルダがないため、banner.JPGを試す
+            if (episodeName === 'EP0004_Maeda' || episodeName === 'EP0005_Fushimi') {
                 bannerImg.src = `${episodeName}/banner.JPG`;
                 bannerImg.onerror = function() {
                     // banner.JPGが見つからない場合、最初の画像を使用
@@ -323,8 +323,8 @@
                     if (filteredImages.length > 0) {
                         const firstFilteredImage = filteredImages[0];
                         const firstFilteredFileName = isStringArray ? firstFilteredImage : firstFilteredImage.file;
-                        // EP0004_Maedaの場合はimages/フォルダがないため、パスを変更
-                        const imagePath = episodeName === 'EP0004_Maeda'
+                        // EP0004_MaedaとEP0005_Fushimiの場合はimages/フォルダがないため、パスを変更
+                        const imagePath = (episodeName === 'EP0004_Maeda' || episodeName === 'EP0005_Fushimi')
                             ? `${episodeName}/${firstFilteredFileName}`
                             : `${episodeName}/images/${firstFilteredFileName}`;
                         this.src = imagePath;
@@ -366,8 +366,8 @@
                 const fileName = isStringArray ? item : item.file;
                 
                 const img = document.createElement('img');
-                // EP0004_Maedaの場合はimages/フォルダがないため、パスを動的に変更
-                const imagePath = episodeName === 'EP0004_Maeda' 
+                // EP0004_MaedaとEP0005_Fushimiの場合はimages/フォルダがないため、パスを動的に変更
+                const imagePath = (episodeName === 'EP0004_Maeda' || episodeName === 'EP0005_Fushimi')
                     ? `${episodeName}/${fileName}`
                     : `${episodeName}/images/${fileName}`;
                 img.src = imagePath;
