@@ -387,9 +387,8 @@
                             try {
                                 const response = await fetch(this.src);
                                 const arrayBuffer = await response.arrayBuffer();
-                                const exifData = await exifr.parse(arrayBuffer, {
-                                    pick: ['LensModel', 'Lens', 'LensInfo', 'LensSpec']
-                                });
+                                // pickオプションは配列形式で指定、またはオプションなしで全データを取得
+                                const exifData = await exifr.parse(arrayBuffer);
                                 lensModelFromExifr = exifData?.LensModel || exifData?.Lens || exifData?.LensInfo || exifData?.LensSpec || null;
                                 
                                 // デバッグ: exifrの取得結果を確認
