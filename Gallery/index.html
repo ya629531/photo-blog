@@ -361,7 +361,20 @@
                 
                 const text = document.createElement('div');
                 text.className = 'photo-item-text';
-                text.textContent = ''; // 初期値は空
+                text.style.display = 'flex';
+                text.style.justifyContent = 'space-between';
+                text.style.alignItems = 'center';
+                
+                // カメラ名用の要素（左詰め）
+                const cameraName = document.createElement('span');
+                cameraName.style.textAlign = 'left';
+                
+                // 撮影諸元用の要素（右詰め）
+                const exifInfo = document.createElement('span');
+                exifInfo.style.textAlign = 'right';
+                
+                text.appendChild(cameraName);
+                text.appendChild(exifInfo);
                 
                 // 全画像のEXIF情報を取得
                 if (typeof EXIF !== 'undefined') {
@@ -374,13 +387,19 @@
                             const model = EXIF.getTag(this, "Model");
                             const focalLength = EXIF.getTag(this, "FocalLength");
                             
-                            // 指定された形式でEXIF情報をフォーマット: f/3.6 1/20sISO800 (FUJIFILM X100VI / 23mm)
-                            const exifParts = [];
-                            
-                            // 露出
-                            if (aperture) {
-                                exifParts.push(`f/${aperture}`);
+                            // カメラ名（左詰め）
+                            if (make && model) {
+                                cameraName.textContent = `${make} ${model}`;
+                            } else if (make) {
+                                cameraName.textContent = make;
+                            } else if (model) {
+                                cameraName.textContent = model;
+                            } else {
+                                cameraName.textContent = '';
                             }
+                            
+                            // 撮影諸元（右詰め）: 1/30s  f4 ISO200  ( 32mm)
+                            const exifParts = [];
                             
                             // シャッター速度
                             if (shutterSpeed) {
@@ -388,39 +407,32 @@
                                 exifParts.push(`${speed}s`);
                             }
                             
+                            // 絞り（f4形式）
+                            if (aperture) {
+                                exifParts.push(`f${Math.round(aperture)}`);
+                            }
+                            
                             // ISO
                             if (iso) {
                                 exifParts.push(`ISO${iso}`);
                             }
                             
-                            // カメラと焦点距離（括弧内）
-                            const cameraParts = [];
-                            if (make && model) {
-                                cameraParts.push(`${make} ${model}`);
-                            } else if (make) {
-                                cameraParts.push(make);
-                            } else if (model) {
-                                cameraParts.push(model);
-                            }
-                            
+                            // 焦点距離（括弧内）
                             if (focalLength) {
-                                cameraParts.push(`${focalLength}mm`);
-                            }
-                            
-                            if (cameraParts.length > 0) {
-                                exifParts.push(`(${cameraParts.join(' / ')})`);
+                                exifParts.push(`(${Math.round(focalLength)}mm)`);
                             }
                             
                             if (exifParts.length > 0) {
-                                text.textContent = exifParts.join(' ');
+                                exifInfo.textContent = exifParts.join('  ');
                             } else {
-                                text.textContent = '';
+                                exifInfo.textContent = '';
                             }
                         });
                     };
                 } else {
                     // EXIF.jsが読み込まれていない場合
-                    text.textContent = isStringArray ? '' : (item.exifText || '');
+                    cameraName.textContent = '';
+                    exifInfo.textContent = isStringArray ? '' : (item.exifText || '');
                 }
                 
                 photoItem.appendChild(img);
