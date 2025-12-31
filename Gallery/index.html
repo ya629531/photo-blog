@@ -491,7 +491,7 @@
                         : data.description.ja;
                     descriptionContent.appendChild(jaParagraph);
                     
-                    // 日付を別行で表示（日本語版：2025/12形式）
+                    // 日付を別行で表示（日本語版：2025年12月形式）
                     if (data.date) {
                         const dateParts = data.date.split('/');
                         if (dateParts.length >= 2) {
@@ -502,7 +502,7 @@
                             dateElement.style.opacity = '0.7';
                             dateElement.style.fontStyle = 'normal';
                             dateElement.style.textAlign = 'right';
-                            dateElement.textContent = `${dateParts[0]}/${dateParts[1]}`;
+                            dateElement.textContent = `${dateParts[0]}年${parseInt(dateParts[1])}月`;
                             descriptionContent.appendChild(dateElement);
                         }
                     }
