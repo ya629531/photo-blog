@@ -371,12 +371,17 @@
                 const line1 = document.createElement('div');
                 line1.style.textAlign = 'right';
                 
-                // 2行目: カメラ名と焦点距離
+                // 2行目: レンズ名（取得可能な場合）またはカメラ名と焦点距離
                 const line2 = document.createElement('div');
                 line2.style.textAlign = 'right';
                 
+                // 3行目: カメラ名と焦点距離（レンズ名がある場合のみ）
+                const line3 = document.createElement('div');
+                line3.style.textAlign = 'right';
+                
                 text.appendChild(line1);
                 text.appendChild(line2);
+                text.appendChild(line3);
                 
                 // 全画像のEXIF情報を取得
                 if (typeof EXIF !== 'undefined') {
@@ -434,42 +439,61 @@
                                 line1.textContent = '';
                             }
                             
-                            // 2行目: カメラ名、レンズ名（取得可能な場合）、焦点距離
-                            const line2Parts = [];
-                            
-                            // カメラ名
-                            if (make && model) {
-                                line2Parts.push(`${make} ${model}`);
-                            } else if (make) {
-                                line2Parts.push(make);
-                            } else if (model) {
-                                line2Parts.push(model);
-                            }
-                            
-                            // レンズ名（取得可能な場合のみ表示）
+                            // レンズ名がある場合とない場合で表示を分ける
                             if (finalLensModel) {
-                                if (line2Parts.length > 0) {
-                                    line2Parts.push(`/ ${finalLensModel}`);
-                                } else {
-                                    line2Parts.push(finalLensModel);
-                                }
-                            }
-                            
-                            // 焦点距離
-                            if (focalLength) {
-                                if (finalLensModel) {
-                                    // レンズ名がある場合は括弧内で表示
+                                // レンズ名がある場合: 2行目にレンズ名と焦点距離、3行目にカメラ名
+                                const line2Parts = [];
+                                line2Parts.push(finalLensModel);
+                                
+                                // 焦点距離（括弧内）
+                                if (focalLength) {
                                     line2Parts.push(`(${Math.round(focalLength)}mm)`);
-                                } else {
-                                    // レンズ名がない場合は括弧なしで表示
-                                    line2Parts.push(`${Math.round(focalLength)}mm`);
                                 }
-                            }
-                            
-                            if (line2Parts.length > 0) {
-                                line2.textContent = line2Parts.join(' ');
+                                
+                                if (line2Parts.length > 0) {
+                                    line2.textContent = line2Parts.join(' ');
+                                } else {
+                                    line2.textContent = '';
+                                }
+                                
+                                // 3行目: カメラ名
+                                const line3Parts = [];
+                                if (make && model) {
+                                    line3Parts.push(`${make} ${model}`);
+                                } else if (make) {
+                                    line3Parts.push(make);
+                                } else if (model) {
+                                    line3Parts.push(model);
+                                }
+                                
+                                if (line3Parts.length > 0) {
+                                    line3.textContent = line3Parts.join(' ');
+                                } else {
+                                    line3.textContent = '';
+                                }
                             } else {
-                                line2.textContent = '';
+                                // レンズ名がない場合: 2行目にカメラ名と焦点距離
+                                const line2Parts = [];
+                                // カメラ名
+                                if (make && model) {
+                                    line2Parts.push(`${make} ${model}`);
+                                } else if (make) {
+                                    line2Parts.push(make);
+                                } else if (model) {
+                                    line2Parts.push(model);
+                                }
+                                
+                                // 焦点距離（括弧内）
+                                if (focalLength) {
+                                    line2Parts.push(`(${Math.round(focalLength)}mm)`);
+                                }
+                                
+                                if (line2Parts.length > 0) {
+                                    line2.textContent = line2Parts.join(' ');
+                                } else {
+                                    line2.textContent = '';
+                                }
+                                line3.textContent = '';
                             }
                         });
                     };
