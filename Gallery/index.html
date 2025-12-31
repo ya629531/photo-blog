@@ -464,11 +464,12 @@
                             const year = dateParts[0];
                             
                             const dateElement = document.createElement('p');
-                            dateElement.style.marginTop = '10px';
+                            dateElement.style.marginTop = '5px';
                             dateElement.style.marginBottom = '30px';
                             dateElement.style.fontSize = '0.85em';
                             dateElement.style.opacity = '0.7';
                             dateElement.style.fontStyle = 'normal';
+                            dateElement.style.textAlign = 'right';
                             dateElement.textContent = `${monthName} ${year}`;
                             descriptionContent.appendChild(dateElement);
                         } else {
@@ -495,11 +496,12 @@
                         const dateParts = data.date.split('/');
                         if (dateParts.length >= 2) {
                             const dateElement = document.createElement('p');
-                            dateElement.style.marginTop = '10px';
+                            dateElement.style.marginTop = '5px';
                             dateElement.style.marginBottom = '0';
                             dateElement.style.fontSize = '0.85em';
                             dateElement.style.opacity = '0.7';
                             dateElement.style.fontStyle = 'normal';
+                            dateElement.style.textAlign = 'right';
                             dateElement.textContent = `${dateParts[0]}/${dateParts[1]}`;
                             descriptionContent.appendChild(dateElement);
                         }
