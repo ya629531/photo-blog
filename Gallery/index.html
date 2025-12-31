@@ -366,11 +366,11 @@
                 text.style.flexDirection = 'column';
                 text.style.alignItems = 'flex-end';
                 
-                // 1行目: カメラ名 / レンズ名 (焦点距離)
+                // 1行目: 撮影諸元
                 const line1 = document.createElement('div');
                 line1.style.textAlign = 'right';
                 
-                // 2行目: 撮影諸元
+                // 2行目: カメラ名と焦点距離
                 const line2 = document.createElement('div');
                 line2.style.textAlign = 'right';
                 
@@ -387,47 +387,8 @@
                             const make = EXIF.getTag(this, "Make");
                             const model = EXIF.getTag(this, "Model");
                             const focalLength = EXIF.getTag(this, "FocalLength");
-                            const lensModel = EXIF.getTag(this, "LensModel");
                             
-                            // 1行目: カメラ名 / レンズ名 (焦点距離)
-                            const line1Parts = [];
-                            
-                            // カメラ名
-                            if (make && model) {
-                                line1Parts.push(`${make} ${model}`);
-                            } else if (make) {
-                                line1Parts.push(make);
-                            } else if (model) {
-                                line1Parts.push(model);
-                            }
-                            
-                            // レンズ名
-                            if (lensModel) {
-                                if (line1Parts.length > 0) {
-                                    line1Parts.push(`/ ${lensModel}`);
-                                } else {
-                                    line1Parts.push(lensModel);
-                                }
-                            }
-                            
-                            // 焦点距離
-                            if (focalLength) {
-                                if (lensModel) {
-                                    // レンズ名がある場合は括弧内で表示
-                                    line1Parts.push(`(${Math.round(focalLength)}mm)`);
-                                } else {
-                                    // レンズ名がない場合は括弧なしで表示
-                                    line1Parts.push(`${Math.round(focalLength)}mm`);
-                                }
-                            }
-                            
-                            if (line1Parts.length > 0) {
-                                line1.textContent = line1Parts.join('  ');
-                            } else {
-                                line1.textContent = '';
-                            }
-                            
-                            // 2行目: 撮影諸元（英語表記）
+                            // 1行目: 撮影諸元（英語表記）
                             const exifParts = [];
                             
                             // シャッター速度
@@ -447,7 +408,30 @@
                             }
                             
                             if (exifParts.length > 0) {
-                                line2.textContent = exifParts.join('  ');
+                                line1.textContent = exifParts.join(' ');
+                            } else {
+                                line1.textContent = '';
+                            }
+                            
+                            // 2行目: カメラ名と焦点距離
+                            const line2Parts = [];
+                            
+                            // カメラ名
+                            if (make && model) {
+                                line2Parts.push(`${make} ${model}`);
+                            } else if (make) {
+                                line2Parts.push(make);
+                            } else if (model) {
+                                line2Parts.push(model);
+                            }
+                            
+                            // 焦点距離（括弧なし）
+                            if (focalLength) {
+                                line2Parts.push(`${Math.round(focalLength)}mm`);
+                            }
+                            
+                            if (line2Parts.length > 0) {
+                                line2.textContent = line2Parts.join(' ');
                             } else {
                                 line2.textContent = '';
                             }
