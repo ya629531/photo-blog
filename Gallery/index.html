@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="page-title">Gallery - Anyone, Anytime, Anywhere</title>
-    <script src="https://cdn.jsdelivr.net/npm/exif-js@2.3.0/exif.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/exif-js@2.3.0/exif.js" integrity="sha384-mjCisVk+9cQGYprByJbHxzwFO7BVEgR6iCftsCqnmHNKA8uzLYoRng5h1qKMvHjp" crossorigin="anonymous"></script>
     <style>
         * {
             margin: 0;
@@ -187,10 +187,6 @@
             const pathname = window.location.pathname;
             const href = window.location.href;
             
-            // デバッグ用（後で削除可能）
-            console.log('Pathname:', pathname);
-            console.log('Href:', href);
-            
             // 例: /Blog/Gallery/EP0001_Ueno/index.html または /Gallery/EP0001_Ueno/
             // または file:///Users/.../Blog/Gallery/EP0001_Ueno/index.html
             const pathParts = pathname.split('/').filter(part => part);
@@ -224,20 +220,15 @@
             const episodeNameClean = episodeName.trim();
             // data.jsonを読み込む（パスにスペースが含まれる場合に備えてエンコード）
             const dataPath = `${episodeNameClean}/data.json`;
-            console.log('Loading data from:', dataPath);
-            console.log('Episode name:', episodeNameClean);
             
             fetch(dataPath)
                 .then(response => {
-                    console.log('Response status:', response.status);
-                    console.log('Response URL:', response.url);
                     if (!response.ok) {
                         throw new Error(`data.jsonが見つかりません (Status: ${response.status}, Path: ${dataPath})`);
                     }
                     return response.json();
                 })
                 .then(data => {
-                    console.log('Data loaded successfully:', data);
                     // fullTitleがあればそれを使用、なければtitleを使用
                     const displayTitle = data.fullTitle || data.title;
                     

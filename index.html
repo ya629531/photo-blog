@@ -246,8 +246,10 @@
 
                     const caption = document.createElement('div');
                     caption.className = 'photo-post-caption';
-                    // Episode #3(改行)fullTitle の形式で表示
-                    caption.innerHTML = `Episode #${post.episodeNum}<br>${post.description}`;
+                    // Episode #3(改行)fullTitle の形式で表示（XSS対策のため安全に構築）
+                    caption.appendChild(document.createTextNode(`Episode #${post.episodeNum}`));
+                    caption.appendChild(document.createElement('br'));
+                    caption.appendChild(document.createTextNode(post.description));
 
                     const img = document.createElement('img');
                     img.src = post.image;
