@@ -449,18 +449,30 @@
                     enParagraph.style.marginBottom = '30px';
                     enParagraph.style.marginTop = '0';
                     // 配列の場合は結合、文字列の場合はそのまま使用（後方互換性）
-                    let enText = Array.isArray(data.description.en) 
+                    enParagraph.textContent = Array.isArray(data.description.en) 
                         ? data.description.en.join(' ') 
                         : data.description.en;
-                    // 日付があれば最後に追加（YYYY/MM/DDからYYYY/MMに変換）
+                    descriptionContent.appendChild(enParagraph);
+                    
+                    // 日付を別行で表示（英語版：December 2025形式）
                     if (data.date) {
                         const dateParts = data.date.split('/');
                         if (dateParts.length >= 2) {
-                            enText += ` (${dateParts[0]}/${dateParts[1]})`;
+                            const months = ['January', 'February', 'March', 'April', 'May', 'June', 
+                                           'July', 'August', 'September', 'October', 'November', 'December'];
+                            const monthName = months[parseInt(dateParts[1]) - 1];
+                            const year = dateParts[0];
+                            
+                            const dateElement = document.createElement('p');
+                            dateElement.style.marginTop = '20px';
+                            dateElement.style.marginBottom = '0';
+                            dateElement.style.fontSize = '0.85em';
+                            dateElement.style.opacity = '0.7';
+                            dateElement.style.fontStyle = 'normal';
+                            dateElement.textContent = `${monthName} ${year}`;
+                            descriptionContent.appendChild(dateElement);
                         }
                     }
-                    enParagraph.textContent = enText;
-                    descriptionContent.appendChild(enParagraph);
                 }
                 
                 if (data.description.ja) {
@@ -468,18 +480,25 @@
                     jaParagraph.style.marginBottom = '0';
                     jaParagraph.style.marginTop = '0';
                     // 配列の場合は結合、文字列の場合はそのまま使用（後方互換性）
-                    let jaText = Array.isArray(data.description.ja) 
+                    jaParagraph.textContent = Array.isArray(data.description.ja) 
                         ? data.description.ja.join(' ') 
                         : data.description.ja;
-                    // 日付があれば最後に追加（YYYY/MM/DDからYYYY/MMに変換）
+                    descriptionContent.appendChild(jaParagraph);
+                    
+                    // 日付を別行で表示（日本語版：2025/12形式）
                     if (data.date) {
                         const dateParts = data.date.split('/');
                         if (dateParts.length >= 2) {
-                            jaText += ` (${dateParts[0]}/${dateParts[1]})`;
+                            const dateElement = document.createElement('p');
+                            dateElement.style.marginTop = '20px';
+                            dateElement.style.marginBottom = '0';
+                            dateElement.style.fontSize = '0.85em';
+                            dateElement.style.opacity = '0.7';
+                            dateElement.style.fontStyle = 'normal';
+                            dateElement.textContent = `${dateParts[0]}/${dateParts[1]}`;
+                            descriptionContent.appendChild(dateElement);
                         }
                     }
-                    jaParagraph.textContent = jaText;
-                    descriptionContent.appendChild(jaParagraph);
                 }
                 
                 descriptionItem.appendChild(descriptionContent);
