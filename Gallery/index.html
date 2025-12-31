@@ -449,9 +449,17 @@
                     enParagraph.style.marginBottom = '30px';
                     enParagraph.style.marginTop = '0';
                     // 配列の場合は結合、文字列の場合はそのまま使用（後方互換性）
-                    enParagraph.textContent = Array.isArray(data.description.en) 
+                    let enText = Array.isArray(data.description.en) 
                         ? data.description.en.join(' ') 
                         : data.description.en;
+                    // 日付があれば最後に追加（YYYY/MM/DDからYYYY/MMに変換）
+                    if (data.date) {
+                        const dateParts = data.date.split('/');
+                        if (dateParts.length >= 2) {
+                            enText += ` (${dateParts[0]}/${dateParts[1]})`;
+                        }
+                    }
+                    enParagraph.textContent = enText;
                     descriptionContent.appendChild(enParagraph);
                 }
                 
@@ -460,9 +468,17 @@
                     jaParagraph.style.marginBottom = '0';
                     jaParagraph.style.marginTop = '0';
                     // 配列の場合は結合、文字列の場合はそのまま使用（後方互換性）
-                    jaParagraph.textContent = Array.isArray(data.description.ja) 
+                    let jaText = Array.isArray(data.description.ja) 
                         ? data.description.ja.join(' ') 
                         : data.description.ja;
+                    // 日付があれば最後に追加（YYYY/MM/DDからYYYY/MMに変換）
+                    if (data.date) {
+                        const dateParts = data.date.split('/');
+                        if (dateParts.length >= 2) {
+                            jaText += ` (${dateParts[0]}/${dateParts[1]})`;
+                        }
+                    }
+                    jaParagraph.textContent = jaText;
                     descriptionContent.appendChild(jaParagraph);
                 }
                 
