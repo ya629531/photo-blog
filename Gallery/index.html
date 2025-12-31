@@ -433,7 +433,7 @@
                 const descriptionItem = document.createElement('div');
                 descriptionItem.className = 'photo-item';
                 descriptionItem.style.paddingTop = '40px';
-                descriptionItem.style.textAlign = 'center';
+                descriptionItem.style.textAlign = 'left';
                 
                 const descriptionContent = document.createElement('div');
                 descriptionContent.style.fontFamily = 'Georgia, "Times New Roman", serif';
@@ -443,11 +443,13 @@
                 descriptionContent.style.color = '#fff';
                 descriptionContent.style.fontWeight = '200';
                 descriptionContent.style.letterSpacing = '0.02em';
+                descriptionContent.style.textAlign = 'left';
                 
                 if (data.description.en) {
                     const enParagraph = document.createElement('p');
                     enParagraph.style.marginBottom = '0';
                     enParagraph.style.marginTop = '0';
+                    enParagraph.style.textAlign = 'left';
                     // 配列の場合は結合、文字列の場合はそのまま使用（後方互換性）
                     enParagraph.textContent = Array.isArray(data.description.en) 
                         ? data.description.en.join(' ') 
@@ -485,6 +487,7 @@
                     const jaParagraph = document.createElement('p');
                     jaParagraph.style.marginBottom = '0';
                     jaParagraph.style.marginTop = '0';
+                    jaParagraph.style.textAlign = 'left';
                     // 配列の場合は結合、文字列の場合はそのまま使用（後方互換性）
                     jaParagraph.textContent = Array.isArray(data.description.ja) 
                         ? data.description.ja.join(' ') 
