@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="page-title">Gallery - Anyone, Anytime, Anywhere</title>
     <script src="https://cdn.jsdelivr.net/npm/exif-js@2.3.0/exif.js" integrity="sha384-mjCisVk+9cQGYprByJbHxzwFO7BVEgR6iCftsCqnmHNKA8uzLYoRng5h1qKMvHjp" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/exifr/dist/lite.umd.js" crossorigin="anonymous"></script>
     <style>
         * {
             margin: 0;
@@ -379,7 +380,33 @@
                 
                 // 全画像のEXIF情報を取得
                 if (typeof EXIF !== 'undefined') {
-                    img.onload = function() {
+                    img.onload = async function() {
+                        // exifrでレンズ名を取得（非同期）
+                        let lensModelFromExifr = null;
+                        if (typeof exifr !== 'undefined') {
+                            try {
+                                const response = await fetch(this.src);
+                                const arrayBuffer = await response.arrayBuffer();
+                                const exifData = await exifr.parse(arrayBuffer, {
+                                    pick: ['LensModel', 'Lens', 'LensInfo', 'LensSpec']
+                                });
+                                lensModelFromExifr = exifData?.LensModel || exifData?.Lens || exifData?.LensInfo || exifData?.LensSpec || null;
+                                
+                                // デバッグ: exifrの取得結果を確認
+                                if (lensModelFromExifr) {
+                                    console.log('exifrでレンズ名取得成功:', lensModelFromExifr, '画像:', this.src);
+                                } else {
+                                    console.log('exifrでレンズ名未取得 - 画像:', this.src, '取得データ:', exifData);
+                                }
+                            } catch (error) {
+                                // exifrで取得できない場合は無視（exif-jsにフォールバック）
+                                console.log('exifrでレンズ名を取得できませんでした:', error, '画像:', this.src);
+                            }
+                        } else {
+                            console.log('exifrが読み込まれていません');
+                        }
+                        
+                        // exif-jsでその他の情報を取得
                         EXIF.getData(this, function() {
                             const shutterSpeed = EXIF.getTag(this, "ExposureTime");
                             const aperture = EXIF.getTag(this, "FNumber");
@@ -388,6 +415,9 @@
                             const model = EXIF.getTag(this, "Model");
                             const focalLength = EXIF.getTag(this, "FocalLength");
                             const lensModel = EXIF.getTag(this, "LensModel");
+                            
+                            // exifrで取得したレンズ名を優先、なければexif-jsの結果を使用
+                            const finalLensModel = lensModelFromExifr || lensModel;
                             
                             // 1行目: 撮影諸元（英語表記）
                             const exifParts = [];
@@ -427,17 +457,17 @@
                             }
                             
                             // レンズ名（取得可能な場合のみ表示）
-                            if (lensModel) {
+                            if (finalLensModel) {
                                 if (line2Parts.length > 0) {
-                                    line2Parts.push(`/ ${lensModel}`);
+                                    line2Parts.push(`/ ${finalLensModel}`);
                                 } else {
-                                    line2Parts.push(lensModel);
+                                    line2Parts.push(finalLensModel);
                                 }
                             }
                             
                             // 焦点距離
                             if (focalLength) {
-                                if (lensModel) {
+                                if (finalLensModel) {
                                     // レンズ名がある場合は括弧内で表示
                                     line2Parts.push(`(${Math.round(focalLength)}mm)`);
                                 } else {
