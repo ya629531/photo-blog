@@ -390,19 +390,10 @@
                                 // pickオプションは配列形式で指定、またはオプションなしで全データを取得
                                 const exifData = await exifr.parse(arrayBuffer);
                                 lensModelFromExifr = exifData?.LensModel || exifData?.Lens || exifData?.LensInfo || exifData?.LensSpec || null;
-                                
-                                // デバッグ: exifrの取得結果を確認
-                                if (lensModelFromExifr) {
-                                    console.log('exifrでレンズ名取得成功:', lensModelFromExifr, '画像:', this.src);
-                                } else {
-                                    console.log('exifrでレンズ名未取得 - 画像:', this.src, '取得データ:', exifData);
-                                }
                             } catch (error) {
                                 // exifrで取得できない場合は無視（exif-jsにフォールバック）
-                                console.log('exifrでレンズ名を取得できませんでした:', error, '画像:', this.src);
+                                console.debug('exifrでレンズ名を取得できませんでした:', error);
                             }
-                        } else {
-                            console.log('exifrが読み込まれていません');
                         }
                         
                         // exif-jsでその他の情報を取得
