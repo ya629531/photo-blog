@@ -446,7 +446,7 @@
                 
                 if (data.description.en) {
                     const enParagraph = document.createElement('p');
-                    enParagraph.style.marginBottom = '30px';
+                    enParagraph.style.marginBottom = '0';
                     enParagraph.style.marginTop = '0';
                     // 配列の場合は結合、文字列の場合はそのまま使用（後方互換性）
                     enParagraph.textContent = Array.isArray(data.description.en) 
@@ -464,14 +464,19 @@
                             const year = dateParts[0];
                             
                             const dateElement = document.createElement('p');
-                            dateElement.style.marginTop = '20px';
-                            dateElement.style.marginBottom = '0';
+                            dateElement.style.marginTop = '10px';
+                            dateElement.style.marginBottom = '30px';
                             dateElement.style.fontSize = '0.85em';
                             dateElement.style.opacity = '0.7';
                             dateElement.style.fontStyle = 'normal';
                             dateElement.textContent = `${monthName} ${year}`;
                             descriptionContent.appendChild(dateElement);
+                        } else {
+                            // 日付がない場合、英語版の段落に下マージンを設定
+                            enParagraph.style.marginBottom = '30px';
                         }
+                    } else {
+                        enParagraph.style.marginBottom = '30px';
                     }
                 }
                 
@@ -490,7 +495,7 @@
                         const dateParts = data.date.split('/');
                         if (dateParts.length >= 2) {
                             const dateElement = document.createElement('p');
-                            dateElement.style.marginTop = '20px';
+                            dateElement.style.marginTop = '10px';
                             dateElement.style.marginBottom = '0';
                             dateElement.style.fontSize = '0.85em';
                             dateElement.style.opacity = '0.7';
