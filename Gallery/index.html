@@ -387,6 +387,7 @@
                             const make = EXIF.getTag(this, "Make");
                             const model = EXIF.getTag(this, "Model");
                             const focalLength = EXIF.getTag(this, "FocalLength");
+                            const lensModel = EXIF.getTag(this, "LensModel");
                             
                             // 1行目: 撮影諸元（英語表記）
                             const exifParts = [];
@@ -413,7 +414,7 @@
                                 line1.textContent = '';
                             }
                             
-                            // 2行目: カメラ名と焦点距離
+                            // 2行目: カメラ名、レンズ名（取得可能な場合）、焦点距離
                             const line2Parts = [];
                             
                             // カメラ名
@@ -425,9 +426,24 @@
                                 line2Parts.push(model);
                             }
                             
-                            // 焦点距離（括弧なし）
+                            // レンズ名（取得可能な場合のみ表示）
+                            if (lensModel) {
+                                if (line2Parts.length > 0) {
+                                    line2Parts.push(`/ ${lensModel}`);
+                                } else {
+                                    line2Parts.push(lensModel);
+                                }
+                            }
+                            
+                            // 焦点距離
                             if (focalLength) {
-                                line2Parts.push(`${Math.round(focalLength)}mm`);
+                                if (lensModel) {
+                                    // レンズ名がある場合は括弧内で表示
+                                    line2Parts.push(`(${Math.round(focalLength)}mm)`);
+                                } else {
+                                    // レンズ名がない場合は括弧なしで表示
+                                    line2Parts.push(`${Math.round(focalLength)}mm`);
+                                }
                             }
                             
                             if (line2Parts.length > 0) {
