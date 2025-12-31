@@ -361,20 +361,21 @@
                 
                 const text = document.createElement('div');
                 text.className = 'photo-item-text';
+                text.style.textAlign = 'right';
                 text.style.display = 'flex';
-                text.style.justifyContent = 'space-between';
-                text.style.alignItems = 'center';
+                text.style.flexDirection = 'column';
+                text.style.alignItems = 'flex-end';
                 
-                // カメラ名用の要素（左詰め）
-                const cameraName = document.createElement('span');
-                cameraName.style.textAlign = 'left';
+                // 1行目: カメラ名 / レンズ名 (焦点距離)
+                const line1 = document.createElement('div');
+                line1.style.textAlign = 'right';
                 
-                // 撮影諸元用の要素（右詰め）
-                const exifInfo = document.createElement('span');
-                exifInfo.style.textAlign = 'right';
+                // 2行目: 撮影諸元
+                const line2 = document.createElement('div');
+                line2.style.textAlign = 'right';
                 
-                text.appendChild(cameraName);
-                text.appendChild(exifInfo);
+                text.appendChild(line1);
+                text.appendChild(line2);
                 
                 // 全画像のEXIF情報を取得
                 if (typeof EXIF !== 'undefined') {
@@ -386,53 +387,76 @@
                             const make = EXIF.getTag(this, "Make");
                             const model = EXIF.getTag(this, "Model");
                             const focalLength = EXIF.getTag(this, "FocalLength");
+                            const lensModel = EXIF.getTag(this, "LensModel");
                             
-                            // カメラ名（左詰め）
+                            // 1行目: カメラ名 / レンズ名 (焦点距離)
+                            const line1Parts = [];
+                            
+                            // カメラ名
                             if (make && model) {
-                                cameraName.textContent = `${make} ${model}`;
+                                line1Parts.push(`${make} ${model}`);
                             } else if (make) {
-                                cameraName.textContent = make;
+                                line1Parts.push(make);
                             } else if (model) {
-                                cameraName.textContent = model;
-                            } else {
-                                cameraName.textContent = '';
+                                line1Parts.push(model);
                             }
                             
-                            // 撮影諸元（右詰め）: 1/30s  f4 ISO200  ( 32mm)
+                            // レンズ名
+                            if (lensModel) {
+                                if (line1Parts.length > 0) {
+                                    line1Parts.push(`/ ${lensModel}`);
+                                } else {
+                                    line1Parts.push(lensModel);
+                                }
+                            }
+                            
+                            // 焦点距離
+                            if (focalLength) {
+                                if (lensModel) {
+                                    // レンズ名がある場合は括弧内で表示
+                                    line1Parts.push(`(${Math.round(focalLength)}mm)`);
+                                } else {
+                                    // レンズ名がない場合は括弧なしで表示
+                                    line1Parts.push(`${Math.round(focalLength)}mm`);
+                                }
+                            }
+                            
+                            if (line1Parts.length > 0) {
+                                line1.textContent = line1Parts.join('  ');
+                            } else {
+                                line1.textContent = '';
+                            }
+                            
+                            // 2行目: 撮影諸元（英語表記）
                             const exifParts = [];
                             
                             // シャッター速度
                             if (shutterSpeed) {
                                 const speed = shutterSpeed < 1 ? `1/${Math.round(1/shutterSpeed)}` : `${shutterSpeed}`;
-                                exifParts.push(`${speed}s`);
+                                exifParts.push(`Exposure ${speed}s`);
                             }
                             
-                            // 絞り（f4形式）
+                            // 絞り（f/4形式）
                             if (aperture) {
-                                exifParts.push(`f${Math.round(aperture)}`);
+                                exifParts.push(`Aperture f/${Math.round(aperture)}`);
                             }
                             
                             // ISO
                             if (iso) {
-                                exifParts.push(`ISO${iso}`);
-                            }
-                            
-                            // 焦点距離（括弧内）
-                            if (focalLength) {
-                                exifParts.push(`(${Math.round(focalLength)}mm)`);
+                                exifParts.push(`ISO ${iso}`);
                             }
                             
                             if (exifParts.length > 0) {
-                                exifInfo.textContent = exifParts.join('  ');
+                                line2.textContent = exifParts.join('  ');
                             } else {
-                                exifInfo.textContent = '';
+                                line2.textContent = '';
                             }
                         });
                     };
                 } else {
                     // EXIF.jsが読み込まれていない場合
-                    cameraName.textContent = '';
-                    exifInfo.textContent = isStringArray ? '' : (item.exifText || '');
+                    line1.textContent = '';
+                    line2.textContent = isStringArray ? '' : (item.exifText || '');
                 }
                 
                 photoItem.appendChild(img);
