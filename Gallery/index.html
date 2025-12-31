@@ -389,43 +389,6 @@
                             const focalLength = EXIF.getTag(this, "FocalLength");
                             const lensModel = EXIF.getTag(this, "LensModel");
                             
-                            // デバッグ: レンズ名の取得状況を確認
-                            if (lensModel) {
-                                console.log('レンズ名取得成功:', lensModel, '画像:', this.src);
-                            } else {
-                                // 他のレンズ情報タグも確認
-                                const lensInfo = EXIF.getTag(this, "LensInfo");
-                                const lens = EXIF.getTag(this, "Lens");
-                                const lensID = EXIF.getTag(this, "LensID");
-                                const lensSpec = EXIF.getTag(this, "LensSpec");
-                                const lensType = EXIF.getTag(this, "LensType");
-                                const allTags = EXIF.getAllTags(this);
-                                
-                                // レンズ関連の可能性があるタグを全て確認
-                                const lensRelatedTags = {};
-                                for (const key in allTags) {
-                                    const lowerKey = key.toLowerCase();
-                                    if (lowerKey.includes('lens') || 
-                                        lowerKey.includes('focal') ||
-                                        key.includes('Lens') ||
-                                        key.includes('Focal')) {
-                                        lensRelatedTags[key] = allTags[key];
-                                    }
-                                }
-                                
-                                console.log('レンズ名未取得 - 画像:', this.src);
-                                console.log('確認したタグ:', {
-                                    LensModel: lensModel,
-                                    LensInfo: lensInfo,
-                                    Lens: lens,
-                                    LensID: lensID,
-                                    LensSpec: lensSpec,
-                                    LensType: lensType
-                                });
-                                console.log('レンズ関連の可能性があるタグ:', lensRelatedTags);
-                                console.log('全てのEXIFタグ:', allTags);
-                            }
-                            
                             // 1行目: 撮影諸元（英語表記）
                             const exifParts = [];
                             
