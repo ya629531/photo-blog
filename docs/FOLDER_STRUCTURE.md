@@ -1,7 +1,5 @@
 # フォルダ構成
 
-参照サイト（https://anyone-anytime-anywhere.super.site/）のような構造のフォルダ構成です。
-
 ## 現在の構成
 
 ```
@@ -17,12 +15,14 @@ Blog/
 │   ├── COMPONENTS.md           # コンポーネント仕様
 │   └── FOLDER_STRUCTURE.md     # フォルダ構成（このファイル）
 └── Gallery/                     # 各写真集フォルダ
-    └── EP0001_Ueno/            # 写真集1（EP0001_Ueno形式）
-        ├── index.html          # 写真集の個別ページ
+    ├── index.html              # エピソードページの共通テンプレート（動的に生成）
+    └── EP0001_Suikeien/        # 写真集1（EP####_名前形式）
+        ├── index.html          # リダイレクト用のシンプルなHTML
         ├── data.json           # エピソードのメタデータ
         └── images/             # この写真集専用の画像
-            ├── resize_DSC01732.JPG
-            ├── resize_DSC01736.JPG
+            ├── banner.jpg      # バナー画像（オプション）
+            ├── DSCF0988_resize.JPG
+            ├── DSCF0992_resize.JPG
             └── ...
 ```
 
@@ -40,9 +40,16 @@ Blog/
 
 ### 各写真集フォルダ（Gallery/）
 - 各写真集は独立したフォルダとして管理
-- フォルダ名は `EP0001_名前` 形式（Episode + 4桁の通し番号 + アンダースコア + 名前）
-- 各フォルダに`index.html`と`images/`フォルダを含む
-- URL例：`/Gallery/EP0001_Ueno/` → `Gallery/EP0001_Ueno/index.html`
+- フォルダ名は `EP####_名前` 形式（Episode + 4桁の通し番号 + アンダースコア + 名前）
+- 各フォルダに`index.html`（リダイレクト用）、`data.json`、`images/`フォルダを含む
+- 実際の表示は`Gallery/index.html`が動的に生成
+- URL例：`/Gallery/EP0001_Suikeien/index.html` → `Gallery/index.html`がエピソード名を取得して表示
+
+### エピソードページの共通テンプレート（Gallery/index.html）
+- すべてのエピソードページで使用される共通のHTMLファイル
+- URLパラメータまたはパスからエピソード名を取得
+- エピソード名に基づいて`data.json`を読み込み、動的にコンテンツを生成
+- Google Analyticsでエピソード別のトラッキングを実装
 
 ### ドキュメントフォルダ（docs/）
 - プロジェクトのドキュメントをまとめて管理
@@ -57,7 +64,25 @@ Blog/
 
 ## 新しい写真集を追加する場合
 
-1. `Gallery/EP0002_名前/` フォルダを作成
-2. その中に `index.html` と `images/` フォルダを作成
-3. 個別ページの `imageData` 配列に画像情報を追加
+1. `Gallery/EP####_名前/` フォルダを作成（####は4桁の通し番号）
+2. その中に以下を作成:
+   - `index.html`: リダイレクト用のシンプルなHTML（既存のエピソードを参考）
+   - `data.json`: エピソードのメタデータ（title, fullTitle, date, bannerPosition, description, images）
+   - `images/` フォルダ: 画像ファイルを配置（`banner.jpg`または`banner.jpeg`を推奨）
+3. トップレベルの`data.json`の`episodes`配列に新しいエピソード名を追加
+
+**例**:
+```json
+{
+  "episodes": [
+    "EP0001_Suikeien",
+    "EP0002_Rikugien",
+    "EP0003_Gaien",
+    "EP0004_Maeda",
+    "EP0005_Fushimi",
+    "EP0006_Chourakukan",
+    "EP0007_新しいエピソード"  // 追加
+  ]
+}
+```
 

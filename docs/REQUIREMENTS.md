@@ -30,16 +30,6 @@
 
 ## デザイン要件
 
-### 参照サイト
-
-- URL: https://anyone-anytime-anywhere.super.site/
-- 特徴:
-  - 黒背景
-  - 細いフォント（font-weight: 300）
-  - 余白を最小限に
-  - 写真はフル幅表示
-  - 縦に密着して配置
-
 ### カラーパレット
 
 - 背景色: `#000000`
@@ -54,9 +44,11 @@
 
 ### レイアウト
 
-- コンテナ: `max-width: 1400px`, `padding: 60px 40px`
-- 要素間のギャップ: `0`（密着）
+- コンテナ: `max-width: 1400px`, `padding: 20px`
+- トップページのフォトグリッド: `gap: 40px`, `padding-left: 100px`, `padding-right: 100px`（デスクトップ）
+- 個別ページのフォトギャラリー: `gap: 40px`, `padding-left: 100px`, `padding-right: 100px`（デスクトップ）
 - 画像: `width: 100%`, `height: auto`
+- バナー画像: `height: 300px`（デスクトップ）、`100px`（モバイル）、`object-fit: cover`
 
 ## 技術要件
 
@@ -92,26 +84,50 @@
 
 ## データ構造
 
-### トップページの投稿データ
+### トップページのエピソードデータ（data.json）
 
-```javascript
+```json
 {
-  date: 'YYYY/MM',
-  description: '写真の説明文',
-  image: 'Gallery/EP####_名前/images/ファイル名.JPG',
-  url: 'Gallery/EP####_名前/index.html'
+  "episodes": [
+    "EP0001_Suikeien",
+    "EP0002_Rikugien",
+    "EP0003_Gaien",
+    "EP0004_Maeda",
+    "EP0005_Fushimi",
+    "EP0006_Chourakukan"
+  ]
 }
 ```
 
-### 個別ページの画像データ
+### 各エピソードのデータ構造（Gallery/EP####_名前/data.json）
 
-```javascript
+```json
 {
-  file: 'resize_DSC####.JPG',
-  date: 'YYYY/MM',
-  description: '写真の説明文'
+  "title": "EP0001 Suikeien",
+  "fullTitle": "Suikeien, a garden at Shibamata Taishakuten in the rain, Tokyo",
+  "date": "2025/10/25",
+  "bannerPosition": "60%",
+  "description": {
+    "en": ["英語の説明文（配列形式）"],
+    "ja": ["日本語の説明文（配列形式）"]
+  },
+  "images": [
+    "DSCF0988_resize.JPG",
+    "DSCF0992_resize.JPG",
+    ...
+  ]
 }
 ```
+
+**データフィールドの説明**:
+- `title`: エピソードの短いタイトル（例: "EP0001 Suikeien"）
+- `fullTitle`: エピソードの完全なタイトル（トップページと個別ページのh1で使用）
+- `date`: 撮影日（形式: "YYYY/MM/DD"）
+- `bannerPosition`: バナー画像の縦方向の表示位置（パーセンテージ、デフォルト: "60%"）
+- `description`: 説明文オブジェクト
+  - `en`: 英語の説明文（文字列配列または文字列）
+  - `ja`: 日本語の説明文（文字列配列または文字列）
+- `images`: 画像ファイル名の配列（文字列配列形式を推奨）
 
 ## 今後の拡張予定
 
