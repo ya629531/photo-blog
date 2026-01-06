@@ -247,6 +247,14 @@
                     const episodeNum = episodeMatch ? parseInt(episodeMatch[1]) : 0;
                     const episodeLabel = `Episode #${episodeNum}`;
                     
+                    // Google Analytics: エピソード別のページパスを設定
+                    if (typeof gtag !== 'undefined') {
+                        gtag('config', 'G-RC499KFRHR', {
+                            'page_path': `/episode/${episodeNameClean}`,
+                            'page_title': `${displayTitle} - Anyone, Anytime, Anywhere`
+                        });
+                    }
+                    
                     // ページタイトルを更新
                     document.getElementById('page-title').textContent = `${displayTitle} - Anyone, Anytime, Anywhere`;
                     

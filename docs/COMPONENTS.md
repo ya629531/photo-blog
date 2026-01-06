@@ -254,9 +254,18 @@
 
 ### 個別ページ
 
+#### `getEpisodeName()`
+- URLパラメータまたはパスからエピソード名を取得
+- エピソード名が見つからない場合は`null`を返す
+
 #### `loadImages()`
 - `imageData`配列を読み込んで、`#photo-gallery`内に写真を動的に生成
 - `DOMContentLoaded`イベントで実行
+
+#### Google Analytics統合
+- エピソード名を取得後、Google Analyticsのページパスを動的に設定
+- ページパス形式: `/episode/{エピソード名}`（例: `/episode/EP0001_Suikeien`）
+- これにより、Google Analyticsでエピソード別のページビューを分析可能
 
 ---
 

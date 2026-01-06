@@ -82,6 +82,14 @@
 - GitHub Pagesでデプロイ可能
 - 静的ファイルのみ
 
+### Google Analytics
+
+- [x] トップページ（`index.html`）にGoogle Analyticsを実装
+- [x] 各エピソードページ（`Gallery/index.html`）にGoogle Analyticsを実装
+- [x] エピソード別の分析が可能（ページパスにエピソード情報を含める）
+  - エピソードページのページパス: `/episode/{エピソード名}`（例: `/episode/EP0001_Suikeien`）
+  - Google Analyticsでエピソード別のページビューを分析可能
+
 ## データ構造
 
 ### トップページの投稿データ
