@@ -26,6 +26,10 @@ Blog/
             └── ...
 ```
 
+### フォルダ名の更新履歴
+
+- `Gallery/EP0010_Kasuga/` → `Gallery/EP0010_Kasugataisya/` にリネーム（2026-03-09）
+
 ## 構成の説明
 
 ### トップページ（index.html）
