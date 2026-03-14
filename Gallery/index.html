@@ -298,12 +298,19 @@
             }
             
             let triedBannerJpeg = false;
+            let triedBannerJpgUpper = false;
             
             // banner.jpgを試す
             bannerImg.src = `${episodeName}/images/banner.jpg`;
             
             // banner.jpgが見つからない場合の処理
             bannerImg.onerror = function() {
+                // banner.JPG（大文字）も試す（GitHub Pages等は大文字小文字を区別する）
+                if (!triedBannerJpgUpper) {
+                    triedBannerJpgUpper = true;
+                    this.src = `${episodeName}/images/banner.JPG`;
+                    return;
+                }
                 // banner.jpegも試す
                 if (!triedBannerJpeg) {
                     triedBannerJpeg = true;
@@ -311,7 +318,7 @@
                     return;
                 }
                 
-                // banner.jpegも見つからない場合、最初の画像を使用
+                // いずれも見つからない場合、最初の画像を使用
                 if (data.images && data.images.length > 0) {
                     const isStringArray = typeof data.images[0] === 'string';
                     
