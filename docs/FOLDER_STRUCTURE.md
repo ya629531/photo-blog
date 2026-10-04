@@ -93,3 +93,4 @@ Blog/
 
 ## 公開履歴
 - `Gallery/EP0010_Kasugataisha/` をトップページのエピソード一覧に追加（2026-10-04）
+- EP0010の仮タイトル・紹介文を、既存エピソードの文体に合わせた日英の文章に更新。朱の回廊と燈籠の光を主題とする（2026-10-04）。歴史・藤浪之屋の説明は春日大社公式サイトで確認： https://www.kasugataisha.or.jp/about/ 、 https://www.kasugataisha.or.jp/guidance/index/modal-10/
