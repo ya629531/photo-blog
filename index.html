@@ -196,7 +196,7 @@
 
             try {
                 // 1. Blog/data.jsonを読み込む
-                const siteDataResponse = await fetch('data.json');
+                const siteDataResponse = await fetch('data.json', { cache: 'no-cache' });
                 if (!siteDataResponse.ok) {
                     throw new Error('data.jsonが見つかりません');
                 }
@@ -218,7 +218,7 @@
                 const posts = await Promise.all(
                     sortedEpisodes.map(async (episode) => {
                         try {
-                            const response = await fetch(`Gallery/${episode}/data.json`);
+                            const response = await fetch(`Gallery/${episode}/data.json`, { cache: 'no-cache' });
                             if (response.ok) {
                                 const data = await response.json();
                                 

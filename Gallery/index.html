@@ -231,7 +231,7 @@
             // data.jsonを読み込む（パスにスペースが含まれる場合に備えてエンコード）
             const dataPath = `${episodeNameClean}/data.json`;
             
-            fetch(dataPath)
+            fetch(dataPath, { cache: 'no-cache' })
                 .then(response => {
                     if (!response.ok) {
                         throw new Error(`data.jsonが見つかりません (Status: ${response.status}, Path: ${dataPath})`);
