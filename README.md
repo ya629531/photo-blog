@@ -11,8 +11,11 @@
 ## セットアップ
 
 1. リポジトリをクローン
-2. `index.html`をブラウザで開く（ローカル開発）
-3. GitHub Pagesでデプロイ可能
+2. VSCodeで `Blog.code-workspace` を開く
+3. 「ターミナル → タスクの実行 → Blog: ローカルプレビュー」を実行し、http://127.0.0.1:8000/ で確認する
+4. commit・push後、GitHub Pagesのデプロイを確認する
+
+詳しい作業手順は `docs/DEVELOPMENT.md` を参照してください。
 
 ## フォルダ構成
 
@@ -21,8 +24,8 @@
 ## 開発
 
 - 新しい写真集を追加する場合は `Gallery/EP####_名前/` フォルダを作成
-- トップページの `posts` 配列に新しい投稿を追加
-- 各写真集の `imageData` 配列に画像情報を追加
+- トップレベルの `data.json` の `episodes` 配列に新しい投稿を追加
+- 各写真集の `data.json` の `images` 配列に画像情報を追加
 
 ## デプロイ
 
@@ -36,4 +39,3 @@ GitHub Pagesで自動デプロイされます。
 - `docs/DESIGN.md` - デザイン仕様
 - `docs/COMPONENTS.md` - コンポーネント仕様
 - `docs/FOLDER_STRUCTURE.md` - フォルダ構成
-

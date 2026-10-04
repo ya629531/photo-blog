@@ -1,0 +1,10 @@
+{
+  "folders": [{ "path": "." }],
+  "settings": {
+    "files.encoding": "utf8",
+    "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true,
+    "[json]": { "editor.tabSize": 2 },
+    "[html]": { "editor.tabSize": 4 }
+  }
+}
