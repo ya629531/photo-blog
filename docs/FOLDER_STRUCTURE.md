@@ -97,5 +97,5 @@ Blog/
 
 ## EP0011の画像管理
 - `Gallery/EP0011_Nanzenji/` に南禅寺のエピソードを追加。
-- `images/DSC*.JPG` は撮影原本としてローカルに保持し、同フォルダの `.gitignore` でGit管理から除外する。
-- ページには長辺2400pxの `resize_DSC*.JPG` を使用し、バナーは水路閣の写真から生成する。
+- `images/DSC*.JPG` を長辺2400px・JPEG品質80の表示用画像としてGit管理する。更新時は同名で上書きし、`resize_` は付けない。
+- `banner.jpg` は編集済みのバナーを長辺1600px・JPEG品質80で保存する。
