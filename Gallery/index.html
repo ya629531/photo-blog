@@ -472,7 +472,7 @@
                                 line2Parts.push(finalLensModel);
                                 
                                 // 焦点距離（括弧内）
-                                if (focalLength) {
+                                if (Number.isFinite(Number(focalLength)) && Number(focalLength) > 0) {
                                     line2Parts.push(`(${Math.round(focalLength)}mm)`);
                                 }
                                 
@@ -510,7 +510,7 @@
                                 }
                                 
                                 // 焦点距離（括弧内）
-                                if (focalLength) {
+                                if (Number.isFinite(Number(focalLength)) && Number(focalLength) > 0) {
                                     line2Parts.push(`(${Math.round(focalLength)}mm)`);
                                 }
                                 
