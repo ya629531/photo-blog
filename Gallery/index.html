@@ -398,6 +398,7 @@
                 // 2行目: レンズ名（取得可能な場合）またはカメラ名と焦点距離
                 const line2 = document.createElement('div');
                 line2.style.textAlign = 'right';
+                line2.textContent = data.lensModel || '';
                 
                 // 3行目: カメラ名と焦点距離（レンズ名がある場合のみ）
                 const line3 = document.createElement('div');
@@ -435,8 +436,8 @@
                             const focalLength = EXIF.getTag(this, "FocalLength");
                             const lensModel = EXIF.getTag(this, "LensModel");
                             
-                            // exifrで取得したレンズ名を優先、なければexif-jsの結果を使用
-                            const finalLensModel = lensModelFromExifr || lensModel;
+                            // エピソードに登録したレンズ名を優先する
+                            const finalLensModel = data.lensModel || lensModelFromExifr || lensModel;
                             
                             // 1行目: 撮影諸元（英語表記）
                             const exifParts = [];
@@ -524,7 +525,7 @@
                 } else {
                     // EXIF.jsが読み込まれていない場合
                     line1.textContent = '';
-                    line2.textContent = isStringArray ? '' : (item.exifText || '');
+                    line2.textContent = data.lensModel || (isStringArray ? '' : (item.exifText || ''));
                 }
                 
                 photoItem.appendChild(img);

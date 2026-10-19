@@ -185,6 +185,11 @@
 - 例: `"50%"`（中央）、`"30%"`（上部寄り）、`"80%"`（下部寄り）
 - `object-position: center {bannerPosition}`として適用される
 
+**lensModel（任意）**:
+- エピソードの`data.json`に指定すると、全写真のレンズ名としてEXIFより優先して表示する。
+- 未指定のエピソードは従来どおりEXIFから取得する。
+- EXIFが取得できない場合も、指定されたレンズ名を表示する。
+
 **動作**:
 - `banner.jpg`または`banner.jpeg`が見つからない場合、`images`配列の最初の画像（bannerを除く）をbannerとして使用
 
