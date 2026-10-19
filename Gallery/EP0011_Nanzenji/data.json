@@ -1,0 +1,132 @@
+{
+  "title": "EP0011 Nanzenji",
+  "fullTitle": "Nanzen-ji - Brick Arches and Quiet Light in Kyoto",
+  "date": "2026/08/11",
+  "bannerPosition": "50%",
+  "description": {
+    "en": [
+      "At Nanzen-ji in Kyoto, green leaves frame dark wooden pillars, and light traces the edges of tiled roofs. A few maple leaves carry a reddish tint among the greens. The broad view of the temple grounds gives way to smaller details, where color and texture quietly draw the eye.",
+      "At the Suirokaku aqueduct, brick arches repeat beneath the trees. Seen from the side, their curves stretch across the frame; from below, the openings align into a passage of light and shadow. The same structure takes on a different rhythm with each change of viewpoint.",
+      "Close to the brickwork, uneven surfaces and pale mortar lines become visible. Leaves overlap the arches, and tree trunks appear within their openings. The geometry of the masonry and the irregular shapes of the greenery share the same space, each bringing out the character of the other.",
+      "Along the wooden corridors, the light softens. A bright garden lies beyond a dim passage, while a lattice partly conceals the view outside. A framed work of calligraphy, patterns on wood, and ripples in a stone basin bring the gaze closer still.",
+      "From the sweep of the arches to the grain of wood, these photographs follow the shapes and surfaces of Nanzen-ji. Between brick, timber, and leaves, light gives each scene its own quiet depth."
+    ],
+    "ja": [
+      "京都・南禅寺。木の柱を縁取る青葉と、瓦屋根の端をなぞる光。緑のなかには、ほのかに赤みを帯びた楓の葉も重なる。境内の広がりから小さな細部へと目を移すと、色や質感が静かに浮かび上がってくる。",
+      "木々の間に姿を見せる水路閣では、煉瓦のアーチが繰り返される。横から見れば、その曲線は画面の奥へと連なり、下からのぞけば、いくつもの開口部が光と影の通り道をつくる。同じ構造も、見る位置によって異なるリズムを帯びている。",
+      "煉瓦に近づくと、表面の凹凸や淡い目地の線が見えてくる。アーチに重なる葉、その内側に収まる木の幹。整った煉瓦のかたちと、思い思いに枝を伸ばす緑が、互いの表情を引き立てている。",
+      "木の回廊へと視線を移せば、光はやわらかくなる。薄暗い廊下の先に広がる明るい庭、格子越しに見える白壁と木々。書の額や木肌に残る文様、石の水鉢に浮かぶ波紋にも、それぞれの小さな奥行きがある。",
+      "アーチの大きな曲線から、木目の細やかな線へ。南禅寺のかたちと質感をたどるように写真を重ねた。煉瓦と木と葉のあいだで、光がひとつひとつの風景に静かな深さを与えている。"
+    ]
+  },
+  "images": [
+    {
+      "file": "resize_DSC04897.JPG",
+      "description": "赤みを帯びた楓の葉と緑の重なり"
+    },
+    {
+      "file": "resize_DSC04900.JPG",
+      "description": "木の柱の間から望む庭の緑"
+    },
+    {
+      "file": "resize_DSC04912.JPG",
+      "description": "奥へと続く木の回廊と欄干"
+    },
+    {
+      "file": "resize_DSC04915.JPG",
+      "description": "木の欄干越しに望む山の緑"
+    },
+    {
+      "file": "resize_DSC04921.JPG",
+      "description": "青葉に包まれた木造の門"
+    },
+    {
+      "file": "resize_DSC04922.JPG",
+      "description": "木立の間に広がる石と苔"
+    },
+    {
+      "file": "resize_DSC04923.JPG",
+      "description": "瓦屋根に差し込む光"
+    },
+    {
+      "file": "resize_DSC04928.JPG",
+      "description": "緑に囲まれた水路閣の煉瓦アーチ"
+    },
+    {
+      "file": "resize_DSC04936.JPG",
+      "description": "水路閣の下に連なる煉瓦の柱"
+    },
+    {
+      "file": "resize_DSC04938.JPG",
+      "description": "斜めに連なる水路閣のアーチ"
+    },
+    {
+      "file": "resize_DSC04939.JPG",
+      "description": "枝葉の向こうに見える煉瓦の壁"
+    },
+    {
+      "file": "resize_DSC04946.JPG",
+      "description": "暗い軒下から望む石段と門"
+    },
+    {
+      "file": "resize_DSC04952.JPG",
+      "description": "木々に沿って続く水路閣"
+    },
+    {
+      "file": "resize_DSC04954.JPG",
+      "description": "煉瓦のアーチが縁取る庭の緑"
+    },
+    {
+      "file": "resize_DSC04956.JPG",
+      "description": "水路閣の柱と小さな通路"
+    },
+    {
+      "file": "resize_DSC04960.JPG",
+      "description": "幾重にも重なる水路閣のアーチ"
+    },
+    {
+      "file": "resize_DSC04965.JPG",
+      "description": "煉瓦の継ぎ目と奥に続くアーチ"
+    },
+    {
+      "file": "resize_DSC04966.JPG",
+      "description": "水路閣の縁から差し込む光"
+    },
+    {
+      "file": "resize_DSC04972.JPG",
+      "description": "葉の向こうに続く煉瓦のアーチ"
+    },
+    {
+      "file": "resize_DSC04977.JPG",
+      "description": "水路閣の開口部に見える木の幹"
+    },
+    {
+      "file": "resize_DSC04986.JPG",
+      "description": "明るい庭へと続く室内の廊下"
+    },
+    {
+      "file": "resize_DSC04988.JPG",
+      "description": "室内に掲げられた書の額"
+    },
+    {
+      "file": "resize_DSC04992.JPG",
+      "description": "木の表面に残る文様"
+    },
+    {
+      "file": "resize_DSC04993.JPG",
+      "description": "格子越しに望む庭と白壁"
+    },
+    {
+      "file": "resize_DSC05000.JPG",
+      "description": "石の水鉢に浮かぶ波紋"
+    },
+    {
+      "file": "resize_DSC05004.JPG",
+      "description": "木の柱が連なる屋根付きの通路"
+    },
+    {
+      "file": "resize_DSC05006.JPG",
+      "description": "浅い被写界深度で捉えた木札"
+    }
+  ]
+}
