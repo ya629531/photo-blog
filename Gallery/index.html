@@ -449,8 +449,11 @@
                             }
                             
                             // 絞り（f/4形式）
-                            if (aperture) {
-                                exifParts.push(`Aperture f/${Math.round(aperture)}`);
+                            if (aperture != null) {
+                                const apertureValue = Number(aperture);
+                                exifParts.push(apertureValue > 0
+                                    ? `Aperture f/${Math.round(apertureValue)}`
+                                    : 'Aperture: Unknown');
                             }
                             
                             // ISO
